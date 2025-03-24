@@ -1,0 +1,4727 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>客户健康监测看板</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        // 密码保护
+        const correctPassword = "135690";
+        const userPassword = prompt("请输入密码以查看网页内容:");
+
+        if (userPassword !== correctPassword) {
+            alert("密码错误，网页将关闭。");
+            window.close(); // 关闭网页
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f8f9fa;
+        }
+        .filter-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .filter-input {
+            margin-right: 15px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .filter-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+        #exportBtn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        #exportBtn:hover {
+            background: #2980b9;
+        }
+        .department-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            margin-right: 10px;
+        }
+        .department-btn:hover {
+            background: #2980b9;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .client-class {
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            min-width: 100px;
+            display: inline-block;
+            background: #7f8c8d; /* 添加默认背景颜色 */
+        }
+        .腰部客户 {
+            background: #f1c40f;
+            border: 1px solid #d4ac0d;
+        }
+        .已经流失 {
+            background: #e74c3c;
+            border: 1px solid #cb4335;
+        }
+        .普通客户 {
+            background: #2ecc71;
+            border: 1px solid #28b463;
+        }
+        .头部客户 {
+            background: #2980b9;
+            border: 1px solid #2471a3;
+        }
+        .新客户 {
+            background: #9b59b6;
+            border: 1px solid #884ea0;
+        }
+        .negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .positive {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: 600;
+            position: relative;
+            padding-left: 20px;
+        }
+        .warning::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 1px;
+            font-size: 16px;
+        }
+        .blinking {
+            animation: blinkingText 1.2s infinite;
+        }
+        @keyframes blinkingText {
+            0% { color: #000; }
+            49% { color: #000; }
+            60% { color: transparent; }
+            99% { color: transparent; }
+            100% { color: #000; }
+        }
+        @media screen and (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            .filter-input {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>客户健康监测看板</h1>
+    <div class="filter-section">
+        <input type="text" class="filter-input" id="clientFilter" 
+               placeholder="搜索订购商..." onkeyup="filterTable()" 
+               style="width:200px;">
+        <input type="text" class="filter-input" id="salesmanFilter" 
+               placeholder="搜索业务员..." onkeyup="filterTable()" 
+               style="width:200px;">
+        <button id="exportBtn" onclick="exportData()">导出数据</button>
+        <button id="complaintBtn" class="" onclick="openComplaintPage()">客诉详情</button>
+        <button class="department-btn" onclick="openDepartmentPage('福建办')">福建办</button>
+        <button class="department-btn" onclick="openDepartmentPage('潮汕办')">潮汕办</button>
+        <button class="department-btn" onclick="openDepartmentPage('佛山办')">佛山办</button>
+        <button class="department-btn" onclick="openDepartmentPage('南通办')">南通办</button>
+        <span style="float:right;color:#666;">数据更新至: 2025-03-24</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>订购商</th>
+                <th>部门</th>
+                <th>业务员</th>
+                <th>最后交易</th>
+                <th>本季销售额</th>
+                <th>季度环比</th>
+                <th>本月吨数</th>
+                <th>吨数差额</th>
+                <th>客户分类</th>
+                <th>预警信号</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody">
+            
+        <tr data-department="潮汕办代理" 
+            data-salesman="陈少豪" 
+            data-client="杨永鹏">
+            <td onclick="showSalesChart('杨永鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                杨永鹏
+            </td>
+            <td>潮汕办代理</td>
+            <td>陈少豪</td>
+            <td>2025-03-16</td>
+            <td>¥26,257,592</td>
+            <td>+904%</td>
+            <td>105.7吨</td>
+            <td class="negative">-712.5吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头市裕盛纺织有限公司">
+            <td onclick="showSalesChart('汕头市裕盛纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市裕盛纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-22</td>
+            <td>¥2,332,365</td>
+            <td>+40%</td>
+            <td>66.3吨</td>
+            <td class="positive">+66.3吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="宣龙纺织">
+            <td onclick="showSalesChart('宣龙纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                宣龙纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-10</td>
+            <td>¥2,715,900</td>
+            <td>+86%</td>
+            <td>66.0吨</td>
+            <td class="positive">+66.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头市潮南区金怡丰实业有限公司">
+            <td onclick="showSalesChart('汕头市潮南区金怡丰实业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市潮南区金怡丰实业有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-23</td>
+            <td>¥2,441,908</td>
+            <td>+8%</td>
+            <td>55.0吨</td>
+            <td class="positive">+44.5吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="普宁市荣煌织造有限公司">
+            <td onclick="showSalesChart('普宁市荣煌织造有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市荣煌织造有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-21</td>
+            <td>¥1,562,375</td>
+            <td>+0%</td>
+            <td>46.0吨</td>
+            <td class="positive">+26.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头市茂易盛贸易有公司">
+            <td onclick="showSalesChart('汕头市茂易盛贸易有公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市茂易盛贸易有公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-18</td>
+            <td>¥958,738</td>
+            <td>-70%</td>
+            <td>38.4吨</td>
+            <td class="positive">+34.3吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅70%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="时业(东欣)">
+            <td onclick="showSalesChart('时业(东欣)')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                时业(东欣)
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-19</td>
+            <td>¥811,100</td>
+            <td>-6%</td>
+            <td>38.0吨</td>
+            <td class="positive">+38.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="新东诚纺织">
+            <td onclick="showSalesChart('新东诚纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                新东诚纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-12</td>
+            <td>¥1,034,140</td>
+            <td>+30%</td>
+            <td>34.0吨</td>
+            <td class="positive">+17.7吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="众鑫和">
+            <td onclick="showSalesChart('众鑫和')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                众鑫和
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-23</td>
+            <td>¥1,278,946</td>
+            <td>-67%</td>
+            <td>33.8吨</td>
+            <td class="positive">+23.8吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅67%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="格凯（制衣）实业有限公司">
+            <td onclick="showSalesChart('格凯（制衣）实业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                格凯（制衣）实业有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-15</td>
+            <td>¥775,500</td>
+            <td>+7%</td>
+            <td>33.0吨</td>
+            <td class="positive">+33.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="新正">
+            <td onclick="showSalesChart('新正')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                新正
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-07</td>
+            <td>¥773,850</td>
+            <td>-18%</td>
+            <td>33.0吨</td>
+            <td class="positive">+33.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="郑晓鹏">
+            <td onclick="showSalesChart('郑晓鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                郑晓鹏
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-21</td>
+            <td>¥4,041,890</td>
+            <td>+1080%</td>
+            <td>32.5吨</td>
+            <td class="negative">-81.7吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="闽兴隆纱线行(施友恒)">
+            <td onclick="showSalesChart('闽兴隆纱线行(施友恒)')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                闽兴隆纱线行(施友恒)
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-07</td>
+            <td>¥1,604,519</td>
+            <td>+99%</td>
+            <td>32.0吨</td>
+            <td class="positive">+2.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="荣达欣织造">
+            <td onclick="showSalesChart('荣达欣织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                荣达欣织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-10</td>
+            <td>¥2,300,235</td>
+            <td>-48%</td>
+            <td>31.3吨</td>
+            <td class="negative">-15.6吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅48%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="锦隆织造">
+            <td onclick="showSalesChart('锦隆织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                锦隆织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-11</td>
+            <td>¥970,044</td>
+            <td>+0%</td>
+            <td>31.0吨</td>
+            <td class="positive">+21.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="星源织造">
+            <td onclick="showSalesChart('星源织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                星源织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-16</td>
+            <td>¥4,383,925</td>
+            <td>+3%</td>
+            <td>30.0吨</td>
+            <td class="negative">-54.4吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈东筹">
+            <td onclick="showSalesChart('陈东筹')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈东筹
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-07</td>
+            <td>¥1,324,667</td>
+            <td>-42%</td>
+            <td>22.3吨</td>
+            <td class="negative">-1.9吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅42%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头伟兴针织厂">
+            <td onclick="showSalesChart('汕头伟兴针织厂')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头伟兴针织厂
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-07</td>
+            <td>¥387,600</td>
+            <td>-68%</td>
+            <td>15.0吨</td>
+            <td class="positive">+15.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅68%
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="洪文革" 
+            data-client="俊龙纺织">
+            <td onclick="showSalesChart('俊龙纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                俊龙纺织
+            </td>
+            <td>福建办</td>
+            <td>洪文革</td>
+            <td>2025-03-17</td>
+            <td>¥575,050</td>
+            <td>-58%</td>
+            <td>12.2吨</td>
+            <td class="positive">+2.2吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅58%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈荣宣">
+            <td onclick="showSalesChart('陈荣宣')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈荣宣
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-18</td>
+            <td>¥169,000</td>
+            <td>+90%</td>
+            <td>10.0吨</td>
+            <td class="positive">+10.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="全胜纺织">
+            <td onclick="showSalesChart('全胜纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                全胜纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-08</td>
+            <td>¥218,544</td>
+            <td>-58%</td>
+            <td>10.0吨</td>
+            <td class="positive">+10.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅58%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="李新典">
+            <td onclick="showSalesChart('李新典')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                李新典
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-15</td>
+            <td>¥238,820</td>
+            <td>+3%</td>
+            <td>9.6吨</td>
+            <td class="positive">+7.6吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="肖柏林">
+            <td onclick="showSalesChart('肖柏林')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                肖柏林
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-12</td>
+            <td>¥186,000</td>
+            <td>-0%</td>
+            <td>9.0吨</td>
+            <td class="positive">+9.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="广利布行">
+            <td onclick="showSalesChart('广利布行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                广利布行
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-17</td>
+            <td>¥484,454</td>
+            <td>-4%</td>
+            <td>8.5吨</td>
+            <td class="negative">-3.3吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="鹏盛泰">
+            <td onclick="showSalesChart('鹏盛泰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鹏盛泰
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-18</td>
+            <td>¥150,400</td>
+            <td>+1389%</td>
+            <td>7.4吨</td>
+            <td class="positive">+7.4吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="大纺纺织">
+            <td onclick="showSalesChart('大纺纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                大纺纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-22</td>
+            <td>¥144,200</td>
+            <td>+0%</td>
+            <td>7.0吨</td>
+            <td class="positive">+7.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="范文光">
+            <td onclick="showSalesChart('范文光')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                范文光
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-21</td>
+            <td>¥1,824,255</td>
+            <td>+90%</td>
+            <td>5.8吨</td>
+            <td class="positive">+1.8吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="普宁市东鸿织造制衣有限公司">
+            <td onclick="showSalesChart('普宁市东鸿织造制衣有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市东鸿织造制衣有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-24</td>
+            <td>¥746,340</td>
+            <td>+8%</td>
+            <td>5.0吨</td>
+            <td class="negative">-24.1吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈东立">
+            <td onclick="showSalesChart('陈东立')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈东立
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-14</td>
+            <td>¥964,266</td>
+            <td>-9%</td>
+            <td>5.0吨</td>
+            <td class="negative">-21.6吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="中宝">
+            <td onclick="showSalesChart('中宝')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                中宝
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-23</td>
+            <td>¥378,909</td>
+            <td>-45%</td>
+            <td>5.0吨</td>
+            <td class="positive">+5.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅45%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="正盛纺织">
+            <td onclick="showSalesChart('正盛纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                正盛纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-01</td>
+            <td>¥729,509</td>
+            <td>-18%</td>
+            <td>5.0吨</td>
+            <td class="negative">-15.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="宠得宝">
+            <td onclick="showSalesChart('宠得宝')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                宠得宝
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-04</td>
+            <td>¥494,388</td>
+            <td>+90%</td>
+            <td>5.0吨</td>
+            <td class="negative">-0.8吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="王为峰">
+            <td onclick="showSalesChart('王为峰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                王为峰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-15</td>
+            <td>¥126,270</td>
+            <td>-20%</td>
+            <td>4.6吨</td>
+            <td class="positive">+4.6吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="于凤纺织">
+            <td onclick="showSalesChart('于凤纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                于凤纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-21</td>
+            <td>¥248,042</td>
+            <td>+0%</td>
+            <td>4.3吨</td>
+            <td class="positive">+4.3吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="孙龙">
+            <td onclick="showSalesChart('孙龙')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                孙龙
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-20</td>
+            <td>¥295,308</td>
+            <td>-52%</td>
+            <td>4.2吨</td>
+            <td class="negative">-3.7吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅52%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="象牙盾">
+            <td onclick="showSalesChart('象牙盾')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                象牙盾
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-20</td>
+            <td>¥59,540</td>
+            <td>-93%</td>
+            <td>3.4吨</td>
+            <td class="positive">+3.4吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅93%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="金佳鹏">
+            <td onclick="showSalesChart('金佳鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                金佳鹏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-09</td>
+            <td>¥916,200</td>
+            <td>+51%</td>
+            <td>2.0吨</td>
+            <td class="negative">-31.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="宝来贸易（黄宝昌）">
+            <td onclick="showSalesChart('宝来贸易（黄宝昌）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                宝来贸易（黄宝昌）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-08</td>
+            <td>¥220,114</td>
+            <td>+0%</td>
+            <td>2.0吨</td>
+            <td class="negative">-5.5吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="创辉织造">
+            <td onclick="showSalesChart('创辉织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                创辉织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-07</td>
+            <td>¥389,427</td>
+            <td>+446%</td>
+            <td>2.0吨</td>
+            <td class="negative">-12.5吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="振炜布业">
+            <td onclick="showSalesChart('振炜布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                振炜布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-23</td>
+            <td>¥240,278</td>
+            <td>-47%</td>
+            <td>1.9吨</td>
+            <td class="negative">-3.7吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅47%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="崔永功">
+            <td onclick="showSalesChart('崔永功')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                崔永功
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-20</td>
+            <td>¥33,300</td>
+            <td>+98%</td>
+            <td>1.5吨</td>
+            <td class="positive">+1.5吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="张俊强">
+            <td onclick="showSalesChart('张俊强')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                张俊强
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-07</td>
+            <td>¥156,738</td>
+            <td>+764%</td>
+            <td>1.1吨</td>
+            <td class="negative">-4.9吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈良强">
+            <td onclick="showSalesChart('陈良强')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈良强
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-11</td>
+            <td>¥1,044,620</td>
+            <td>+179%</td>
+            <td>1.1吨</td>
+            <td class="negative">-41.6吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="恒源纺织">
+            <td onclick="showSalesChart('恒源纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                恒源纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-06</td>
+            <td>¥20,700</td>
+            <td>+0%</td>
+            <td>1.0吨</td>
+            <td class="positive">+1.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="宝乐赞">
+            <td onclick="showSalesChart('宝乐赞')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                宝乐赞
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-03-10</td>
+            <td>¥21,400</td>
+            <td>+0%</td>
+            <td>1.0吨</td>
+            <td class="positive">+1.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="张衍波">
+            <td onclick="showSalesChart('张衍波')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                张衍波
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-13</td>
+            <td>¥17,510</td>
+            <td>-32%</td>
+            <td>0.8吨</td>
+            <td class="positive">+0.8吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                季度降幅32%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="郑燃">
+            <td onclick="showSalesChart('郑燃')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                郑燃
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-03-04</td>
+            <td>¥281,593</td>
+            <td>-80%</td>
+            <td>0.5吨</td>
+            <td class="negative">-1.8吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅80%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="庄楚鹏">
+            <td onclick="showSalesChart('庄楚鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                庄楚鹏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-15</td>
+            <td>¥505</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="郭文勇">
+            <td onclick="showSalesChart('郭文勇')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                郭文勇
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-10-04</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                171天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="焕佳织造">
+            <td onclick="showSalesChart('焕佳织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                焕佳织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-24</td>
+            <td>¥4,941,130</td>
+            <td>-38%</td>
+            <td>0.0吨</td>
+            <td class="negative">-84.4吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅38%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="滨诚纺织">
+            <td onclick="showSalesChart('滨诚纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                滨诚纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-10-29</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                146天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="潘百收">
+            <td onclick="showSalesChart('潘百收')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                潘百收
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-03-30</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                725天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="潮丰布业">
+            <td onclick="showSalesChart('潮丰布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                潮丰布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-02-27</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                756天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="南通棉纱部" 
+            data-salesman="洪文革" 
+            data-client="炜灿">
+            <td onclick="showSalesChart('炜灿')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                炜灿
+            </td>
+            <td>南通棉纱部</td>
+            <td>洪文革</td>
+            <td>2024-05-06</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                322天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="鸿兴纱行（陈宏亮）">
+            <td onclick="showSalesChart('鸿兴纱行（陈宏亮）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鸿兴纱行（陈宏亮）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                310天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="烨达纱行">
+            <td onclick="showSalesChart('烨达纱行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                烨达纱行
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-08-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                223天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="煜丰织造">
+            <td onclick="showSalesChart('煜丰织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                煜丰织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-15</td>
+            <td>¥338,800</td>
+            <td>-59%</td>
+            <td>0.0吨</td>
+            <td class="negative">-15.1吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅59%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="郭楚波织造">
+            <td onclick="showSalesChart('郭楚波织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                郭楚波织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-15</td>
+            <td>¥1,096,267</td>
+            <td>+127%</td>
+            <td>0.0吨</td>
+            <td class="negative">-32.5吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="高明">
+            <td onclick="showSalesChart('高明')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                高明
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-09-06</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                199天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="马泽帆">
+            <td onclick="showSalesChart('马泽帆')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                马泽帆
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-04-23</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                335天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="王伟杰">
+            <td onclick="showSalesChart('王伟杰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                王伟杰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-11-30</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                114天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="王少祥">
+            <td onclick="showSalesChart('王少祥')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                王少祥
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2023-08-02</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                600天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="陈特扬织造">
+            <td onclick="showSalesChart('陈特扬织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈特扬织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-01-17</td>
+            <td>¥126,045</td>
+            <td>-72%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                季度降幅72%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="百得布业">
+            <td onclick="showSalesChart('百得布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                百得布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-03-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                363天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="鸿盛">
+            <td onclick="showSalesChart('鸿盛')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鸿盛
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-10-11</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="warning">
+                164天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="滋兴纺织">
+            <td onclick="showSalesChart('滋兴纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                滋兴纺织
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2025-02-19</td>
+            <td>¥148,346</td>
+            <td>-5%</td>
+            <td>0.0吨</td>
+            <td class="negative">-6.5吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="源锐织造">
+            <td onclick="showSalesChart('源锐织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                源锐织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-07-05</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                262天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="黄国泽">
+            <td onclick="showSalesChart('黄国泽')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                黄国泽
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-12-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1206天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="源润织厂">
+            <td onclick="showSalesChart('源润织厂')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                源润织厂
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2023-11-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                506天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="黄旭健">
+            <td onclick="showSalesChart('黄旭健')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                黄旭健
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-09-20</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                185天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="源发纺织">
+            <td onclick="showSalesChart('源发纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                源发纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-01-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                436天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="温州旺姿彩针织有限公司">
+            <td onclick="showSalesChart('温州旺姿彩针织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                温州旺姿彩针织有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-01-12</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                437天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="添盛织厂">
+            <td onclick="showSalesChart('添盛织厂')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                添盛织厂
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-08-19</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                217天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="深圳市苏吉思服饰有限公司">
+            <td onclick="showSalesChart('深圳市苏吉思服饰有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                深圳市苏吉思服饰有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-10-21</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                154天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="洪兴">
+            <td onclick="showSalesChart('洪兴')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                洪兴
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2023-10-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                528天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="泽威纺织">
+            <td onclick="showSalesChart('泽威纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                泽威纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-06-22</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                275天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="期现结合部" 
+            data-salesman="洪文革" 
+            data-client="泉州旭泰纺织品有限公司">
+            <td onclick="showSalesChart('泉州旭泰纺织品有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                泉州旭泰纺织品有限公司
+            </td>
+            <td>期现结合部</td>
+            <td>洪文革</td>
+            <td>2021-12-30</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1180天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="黄晓燕">
+            <td onclick="showSalesChart('黄晓燕')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                黄晓燕
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-28</td>
+            <td>¥219,100</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="negative">-10.3吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="黄育光（龙正）">
+            <td onclick="showSalesChart('黄育光（龙正）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                黄育光（龙正）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-20</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                94天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="鼎和纺织">
+            <td onclick="showSalesChart('鼎和纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鼎和纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-15</td>
+            <td>¥128,588</td>
+            <td>+52%</td>
+            <td>0.0吨</td>
+            <td class="negative">-4.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="江迅">
+            <td onclick="showSalesChart('江迅')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                江迅
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-04-10</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                714天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="百荣布业">
+            <td onclick="showSalesChart('百荣布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                百荣布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-10-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1250天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="益电（罗楚标）">
+            <td onclick="showSalesChart('益电（罗楚标）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                益电（罗楚标）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2022-09-01</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                935天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办代理" 
+            data-salesman="陈少豪" 
+            data-client="盛扬纺织">
+            <td onclick="showSalesChart('盛扬纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                盛扬纺织
+            </td>
+            <td>潮汕办代理</td>
+            <td>陈少豪</td>
+            <td>2025-01-10</td>
+            <td>¥84,750</td>
+            <td>-26%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="陈亮洲布业">
+            <td onclick="showSalesChart('陈亮洲布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈亮洲布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-12-18</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                96天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="金佳艺纺织">
+            <td onclick="showSalesChart('金佳艺纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                金佳艺纺织
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2021-04-20</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1434天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="连胜布业">
+            <td onclick="showSalesChart('连胜布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                连胜布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-08-20</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                216天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办代理" 
+            data-salesman="张赐锋" 
+            data-client="赵廷波">
+            <td onclick="showSalesChart('赵廷波')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                赵廷波
+            </td>
+            <td>潮汕办代理</td>
+            <td>张赐锋</td>
+            <td>2023-01-31</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                783天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="赵华生">
+            <td onclick="showSalesChart('赵华生')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                赵华生
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-26</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="期现结合部" 
+            data-salesman="洪文革" 
+            data-client="金泉纺织（杨金泉）">
+            <td onclick="showSalesChart('金泉纺织（杨金泉）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                金泉纺织（杨金泉）
+            </td>
+            <td>期现结合部</td>
+            <td>洪文革</td>
+            <td>2021-04-28</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1426天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="赖锋宏">
+            <td onclick="showSalesChart('赖锋宏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                赖锋宏
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-04-28</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                330天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="赖俊青">
+            <td onclick="showSalesChart('赖俊青')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                赖俊青
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2022-12-16</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                829天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="鑫源布业">
+            <td onclick="showSalesChart('鑫源布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鑫源布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2023-07-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                607天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头金纺纺织有限公司">
+            <td onclick="showSalesChart('汕头金纺纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头金纺纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2023-03-28</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                727天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="诗维雅">
+            <td onclick="showSalesChart('诗维雅')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                诗维雅
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2022-10-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                888天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="裕联纺织">
+            <td onclick="showSalesChart('裕联纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                裕联纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-01-02</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                447天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="蒋昌龙">
+            <td onclick="showSalesChart('蒋昌龙')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                蒋昌龙
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2023-02-23</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                760天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="锦华贸易">
+            <td onclick="showSalesChart('锦华贸易')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                锦华贸易
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-26</td>
+            <td>¥67,742</td>
+            <td>-96%</td>
+            <td>0.0吨</td>
+            <td class="negative">-3.5吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅96%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="锦虹织造">
+            <td onclick="showSalesChart('锦虹织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                锦虹织造
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-04-08</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                350天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="艺泰">
+            <td onclick="showSalesChart('艺泰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                艺泰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-10</td>
+            <td>¥321,938</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈炎生（宇盛纺织）">
+            <td onclick="showSalesChart('陈炎生（宇盛纺织）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈炎生（宇盛纺织）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-18</td>
+            <td>¥272,605</td>
+            <td>-67%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅67%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈名丰">
+            <td onclick="showSalesChart('陈名丰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈名丰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-09-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                545天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="期现结合部" 
+            data-salesman="陈少豪" 
+            data-client="胜兴源">
+            <td onclick="showSalesChart('胜兴源')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                胜兴源
+            </td>
+            <td>期现结合部</td>
+            <td>陈少豪</td>
+            <td>2022-01-17</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1162天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="陈政钢">
+            <td onclick="showSalesChart('陈政钢')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈政钢
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2023-03-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                742天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈新达">
+            <td onclick="showSalesChart('陈新达')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈新达
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-04-14</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                344天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈桂洲">
+            <td onclick="showSalesChart('陈桂洲')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈桂洲
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2022-09-19</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                917天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="育兴胜布业（郑龙生）">
+            <td onclick="showSalesChart('育兴胜布业（郑龙生）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                育兴胜布业（郑龙生）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-31</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                297天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈楚鑫">
+            <td onclick="showSalesChart('陈楚鑫')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈楚鑫
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-28</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈泽宏">
+            <td onclick="showSalesChart('陈泽宏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈泽宏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-04</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                110天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="联盈布业">
+            <td onclick="showSalesChart('联盈布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                联盈布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-11-08</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                136天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈泽锐">
+            <td onclick="showSalesChart('陈泽锐')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈泽锐
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-03-15</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                740天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="经纶(亿家布行）">
+            <td onclick="showSalesChart('经纶(亿家布行）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                经纶(亿家布行）
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2022-06-24</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1004天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="纺纶织造">
+            <td onclick="showSalesChart('纺纶织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                纺纶织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-09-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                201天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="粤得利织造">
+            <td onclick="showSalesChart('粤得利织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                粤得利织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-19</td>
+            <td>¥81,950</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="negative">-3.7吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="粤彩布业">
+            <td onclick="showSalesChart('粤彩布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                粤彩布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-12-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                459天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="洪文革" 
+            data-client="汕头隆鑫纺织有限公司">
+            <td onclick="showSalesChart('汕头隆鑫纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头隆鑫纺织有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>洪文革</td>
+            <td>2024-10-17</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                158天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="A客（庄育平）">
+            <td onclick="showSalesChart('A客（庄育平）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                A客（庄育平）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-22</td>
+            <td>¥1,471,200</td>
+            <td>+262%</td>
+            <td>0.0吨</td>
+            <td class="negative">-34.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头郑少彬">
+            <td onclick="showSalesChart('汕头郑少彬')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头郑少彬
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2021-07-05</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1358天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="嘉宝宏纺织">
+            <td onclick="showSalesChart('嘉宝宏纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                嘉宝宏纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2023-08-14</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                588天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="厦门爱华顿进出口贸易有限公司">
+            <td onclick="showSalesChart('厦门爱华顿进出口贸易有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                厦门爱华顿进出口贸易有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2022-09-28</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                908天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="厦门纳新贸易有限公司">
+            <td onclick="showSalesChart('厦门纳新贸易有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                厦门纳新贸易有限公司
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2022-06-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1007天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="合成纺织（许培佳）">
+            <td onclick="showSalesChart('合成纺织（许培佳）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                合成纺织（许培佳）
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-05-22</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                306天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="陈少豪" 
+            data-client="启发纱行">
+            <td onclick="showSalesChart('启发纱行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                启发纱行
+            </td>
+            <td>福建办</td>
+            <td>陈少豪</td>
+            <td>2024-07-15</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                252天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="启诚布行">
+            <td onclick="showSalesChart('启诚布行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                启诚布行
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2023-04-17</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                707天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="吴汉如">
+            <td onclick="showSalesChart('吴汉如')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                吴汉如
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-02</td>
+            <td>¥140,934</td>
+            <td>-64%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                季度降幅64%
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="洪文革" 
+            data-client="和兴（陈楚雄）">
+            <td onclick="showSalesChart('和兴（陈楚雄）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                和兴（陈楚雄）
+            </td>
+            <td>福建办</td>
+            <td>洪文革</td>
+            <td>2023-03-03</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                752天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="哩哩美">
+            <td onclick="showSalesChart('哩哩美')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                哩哩美
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-10-09</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="warning">
+                166天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="大鑫纺织">
+            <td onclick="showSalesChart('大鑫纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                大鑫纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-10-17</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                158天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="汕头立华纺织">
+            <td onclick="showSalesChart('汕头立华纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头立华纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-26</td>
+            <td>¥26,400</td>
+            <td>-99%</td>
+            <td>0.0吨</td>
+            <td class="negative">-1.1吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅99%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="天栩布行">
+            <td onclick="showSalesChart('天栩布行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                天栩布行
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-04-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                332天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="张赐锋" 
+            data-client="天辰纺织">
+            <td onclick="showSalesChart('天辰纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                天辰纺织
+            </td>
+            <td>福建办</td>
+            <td>张赐锋</td>
+            <td>2025-02-24</td>
+            <td>¥455,052</td>
+            <td>-66%</td>
+            <td>0.0吨</td>
+            <td class="negative">-10.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅66%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="宏信达织造">
+            <td onclick="showSalesChart('宏信达织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                宏信达织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-09-30</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                175天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="富兴纺织（陈明川）">
+            <td onclick="showSalesChart('富兴纺织（陈明川）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                富兴纺织（陈明川）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-09</td>
+            <td>¥120,000</td>
+            <td>-37%</td>
+            <td>0.0吨</td>
+            <td class="negative">-2.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅37%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="尊马">
+            <td onclick="showSalesChart('尊马')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                尊马
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-04-29</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                695天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="常州旭荣针织印染有限公司">
+            <td onclick="showSalesChart('常州旭荣针织印染有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                常州旭荣针织印染有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-08-30</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1302天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办代理" 
+            data-salesman="陈少豪" 
+            data-client="广东协骅制衣有限公司">
+            <td onclick="showSalesChart('广东协骅制衣有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                广东协骅制衣有限公司
+            </td>
+            <td>潮汕办代理</td>
+            <td>陈少豪</td>
+            <td>2025-02-22</td>
+            <td>¥118,000</td>
+            <td>-77%</td>
+            <td>0.0吨</td>
+            <td class="negative">-5.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅77%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="广东纱纤亿纺织有限公司">
+            <td onclick="showSalesChart('广东纱纤亿纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                广东纱纤亿纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2023-07-10</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                623天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办代理" 
+            data-salesman="洪文革" 
+            data-client="厦门炜燚贸易有限公司">
+            <td onclick="showSalesChart('厦门炜燚贸易有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                厦门炜燚贸易有限公司
+            </td>
+            <td>潮汕办代理</td>
+            <td>洪文革</td>
+            <td>2023-03-10</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                745天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="洪文革" 
+            data-client="厦门海溢针纺织品有限公司">
+            <td onclick="showSalesChart('厦门海溢针纺织品有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                厦门海溢针纺织品有限公司
+            </td>
+            <td>福建办</td>
+            <td>洪文革</td>
+            <td>2022-04-22</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1067天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="洪文革" 
+            data-client="厦门市鑫锦和工贸有限公司">
+            <td onclick="showSalesChart('厦门市鑫锦和工贸有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                厦门市鑫锦和工贸有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>洪文革</td>
+            <td>2023-11-03</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                507天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="卓圣荣">
+            <td onclick="showSalesChart('卓圣荣')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                卓圣荣
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-07-07</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                260天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="陈少豪" 
+            data-client="万兴针织（陈泽佳）">
+            <td onclick="showSalesChart('万兴针织（陈泽佳）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                万兴针织（陈泽佳）
+            </td>
+            <td>福建办</td>
+            <td>陈少豪</td>
+            <td>2025-02-14</td>
+            <td>¥229,562</td>
+            <td>-89%</td>
+            <td>0.0吨</td>
+            <td class="negative">-10.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅89%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="三金鑫布业">
+            <td onclick="showSalesChart('三金鑫布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                三金鑫布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-06-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                279天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="东明纺织">
+            <td onclick="showSalesChart('东明纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                东明纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2022-10-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                888天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="东浩织造">
+            <td onclick="showSalesChart('东浩织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                东浩织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-01-09</td>
+            <td>¥229,979</td>
+            <td>+16%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="东诚织造">
+            <td onclick="showSalesChart('东诚织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                东诚织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-01-16</td>
+            <td>¥443,880</td>
+            <td>-90%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅90%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="两英王新华">
+            <td onclick="showSalesChart('两英王新华')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                两英王新华
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-16</td>
+            <td>¥903,027</td>
+            <td>-17%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="丰裕布业">
+            <td onclick="showSalesChart('丰裕布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                丰裕布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-01-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                423天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="亨瑞">
+            <td onclick="showSalesChart('亨瑞')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                亨瑞
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-11</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                317天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="佰龙实业">
+            <td onclick="showSalesChart('佰龙实业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                佰龙实业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-10</td>
+            <td>¥231,220</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="佳诚布行">
+            <td onclick="showSalesChart('佳诚布行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                佳诚布行
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-25</td>
+            <td>¥2,400</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="negative">-0.1吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="俊平织造">
+            <td onclick="showSalesChart('俊平织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                俊平织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-06-16</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                281天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="信锋织造">
+            <td onclick="showSalesChart('信锋织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                信锋织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-17</td>
+            <td>¥24,893</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="negative">-1.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="陈少豪" 
+            data-client="兴业织造（江白弟）">
+            <td onclick="showSalesChart('兴业织造（江白弟）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                兴业织造（江白弟）
+            </td>
+            <td>福建办</td>
+            <td>陈少豪</td>
+            <td>2023-04-14</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                710天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="刘云航">
+            <td onclick="showSalesChart('刘云航')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                刘云航
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-08-01</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                235天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="洪文革" 
+            data-client="刘太平">
+            <td onclick="showSalesChart('刘太平')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                刘太平
+            </td>
+            <td>福建办</td>
+            <td>洪文革</td>
+            <td>2022-12-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                841天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="创尚品">
+            <td onclick="showSalesChart('创尚品')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                创尚品
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-04-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                340天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="卓佳烽">
+            <td onclick="showSalesChart('卓佳烽')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                卓佳烽
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-09-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                184天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="广州市爱纱进出口贸易有限公司">
+            <td onclick="showSalesChart('广州市爱纱进出口贸易有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                广州市爱纱进出口贸易有限公司
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2022-05-10</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1049天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="庄儒锋">
+            <td onclick="showSalesChart('庄儒锋')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                庄儒锋
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-09-20</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                185天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="庄凯斌">
+            <td onclick="showSalesChart('庄凯斌')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                庄凯斌
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-08-29</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                207天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="普宁市而立织造制衣有限公司">
+            <td onclick="showSalesChart('普宁市而立织造制衣有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市而立织造制衣有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-02-22</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                396天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="普宁长泰">
+            <td onclick="showSalesChart('普宁长泰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁长泰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-09-14</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                191天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="普宁陈进飞">
+            <td onclick="showSalesChart('普宁陈进飞')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁陈进飞
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-09-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1275天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="李晓鹏">
+            <td onclick="showSalesChart('李晓鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                李晓鹏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-16</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                312天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="李贵荣">
+            <td onclick="showSalesChart('李贵荣')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                李贵荣
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-11-03</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                141天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="李雪利">
+            <td onclick="showSalesChart('李雪利')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                李雪利
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-29</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="杜城织造">
+            <td onclick="showSalesChart('杜城织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                杜城织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-12-15</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                99天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="枫林纺织">
+            <td onclick="showSalesChart('枫林纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                枫林纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-12-25</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="BL布业">
+            <td onclick="showSalesChart('BL布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                BL布业
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-02-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                762天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="汇腾纺织">
+            <td onclick="showSalesChart('汇腾纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汇腾纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-11-06</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="warning">
+                138天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头兴发针织有限公司">
+            <td onclick="showSalesChart('汕头兴发针织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头兴发针织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-11-13</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                131天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办代理" 
+            data-salesman="洪文革" 
+            data-client="汕头利标布业有限公司">
+            <td onclick="showSalesChart('汕头利标布业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头利标布业有限公司
+            </td>
+            <td>潮汕办代理</td>
+            <td>洪文革</td>
+            <td>2022-02-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1122天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头吉祥布业有限公司">
+            <td onclick="showSalesChart('汕头吉祥布业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头吉祥布业有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-08-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                223天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头市丹洋纺织有限公司">
+            <td onclick="showSalesChart('汕头市丹洋纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市丹洋纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-09-27</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                178天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="汕头市建胜针织服装有限公司">
+            <td onclick="showSalesChart('汕头市建胜针织服装有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市建胜针织服装有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-08-15</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                221天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="汕头市德利兴纺织有限公司">
+            <td onclick="showSalesChart('汕头市德利兴纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市德利兴纺织有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2021-05-06</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1418天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="汕头市潮南区亚平纺织有限公司">
+            <td onclick="showSalesChart('汕头市潮南区亚平纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市潮南区亚平纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-11</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                317天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="汕头市西华纺织有限公司">
+            <td onclick="showSalesChart('汕头市西华纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市西华纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-01-06</td>
+            <td>¥-611,253</td>
+            <td>-113%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅113%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="普宁恒大">
+            <td onclick="showSalesChart('普宁恒大')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁恒大
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-07-19</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                614天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="普宁市祥泰纺织有限公司">
+            <td onclick="showSalesChart('普宁市祥泰纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市祥泰纺织有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-23</td>
+            <td>¥826,400</td>
+            <td>-23%</td>
+            <td>0.0吨</td>
+            <td class="negative">-6.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="庄育雄">
+            <td onclick="showSalesChart('庄育雄')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                庄育雄
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-12-16</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                98天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="洪文革" 
+            data-client="普宁市和钜纺织有限公司">
+            <td onclick="showSalesChart('普宁市和钜纺织有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市和钜纺织有限公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>洪文革</td>
+            <td>2021-05-17</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1407天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="康平祥">
+            <td onclick="showSalesChart('康平祥')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                康平祥
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2022-06-17</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1011天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="康雅纺织">
+            <td onclick="showSalesChart('康雅纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                康雅纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-10-30</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                145天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="张凤泉">
+            <td onclick="showSalesChart('张凤泉')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                张凤泉
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-08-23</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                579天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="张小龙">
+            <td onclick="showSalesChart('张小龙')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                张小龙
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-05-12</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1412天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="张楠">
+            <td onclick="showSalesChart('张楠')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                张楠
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-03-18</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                737天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="彬盛织厂">
+            <td onclick="showSalesChart('彬盛织厂')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                彬盛织厂
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-02-16</td>
+            <td>¥516,021</td>
+            <td>-59%</td>
+            <td>0.0吨</td>
+            <td class="negative">-23.2吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅59%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="新意">
+            <td onclick="showSalesChart('新意')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                新意
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2024-12-26</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="新鹏">
+            <td onclick="showSalesChart('新鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                新鹏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-13</td>
+            <td>¥11,000</td>
+            <td>-81%</td>
+            <td>0.0吨</td>
+            <td class="negative">-0.5吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                季度降幅81%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="旭锋纺织">
+            <td onclick="showSalesChart('旭锋纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                旭锋纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-03-31</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                358天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="时业针织">
+            <td onclick="showSalesChart('时业针织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                时业针织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-01-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                445天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="旺佳布业">
+            <td onclick="showSalesChart('旺佳布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                旺佳布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-11-07</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="warning">
+                137天未下单 | 季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="昆山崴鸿贸易有限公司">
+            <td onclick="showSalesChart('昆山崴鸿贸易有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                昆山崴鸿贸易有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-07-26</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1337天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="明丰纱行">
+            <td onclick="showSalesChart('明丰纱行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                明丰纱行
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-11-07</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                503天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="洪文革" 
+            data-client="晋江青阳志胜服饰公司">
+            <td onclick="showSalesChart('晋江青阳志胜服饰公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                晋江青阳志胜服饰公司
+            </td>
+            <td>本部棉纱部</td>
+            <td>洪文革</td>
+            <td>2021-04-21</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1433天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="晨晖布业">
+            <td onclick="showSalesChart('晨晖布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                晨晖布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-09-28</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                177天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="普宁兴盛布业有限公司">
+            <td onclick="showSalesChart('普宁兴盛布业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁兴盛布业有限公司
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2024-05-09</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                319天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="普宁宝拉（陈坤海）">
+            <td onclick="showSalesChart('普宁宝拉（陈坤海）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁宝拉（陈坤海）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-08-25</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                211天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="鼎翔织造">
+            <td onclick="showSalesChart('鼎翔织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                鼎翔织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-01-06</td>
+            <td>¥217,147</td>
+            <td>+100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    <script>
+        const monthlyData = {"A客（庄育平）": {"2024-04": 24.2972, "2024-05": 44.825, "2024-06": 42.0, "2024-07": 14.0, "2024-08": 32.0, "2024-09": 0.0, "2024-10": 1.0, "2024-11": 13.0, "2024-12": 5.0, "2025-01": 32.0, "2025-02": 34.0, "2025-03": 0.0}, "BL布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "万兴针织（陈泽佳）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 32.6592, "2024-11": 6.48648, "2024-12": 46.85688, "2025-01": 0.0, "2025-02": 10.02456, "2025-03": 0.0}, "三金鑫布业": {"2024-04": 29.484, "2024-05": 14.742, "2024-06": 60.5, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "东明纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "东浩织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 9.072, "2025-01": 10.56888, "2025-02": 0.0, "2025-03": 0.0}, "东诚织造": {"2024-04": 29.484, "2024-05": 58.968, "2024-06": 59.4216, "2024-07": 132.4323, "2024-08": 99.1116, "2024-09": 89.8128, "2024-10": 59.8752, "2024-11": 63.14112, "2024-12": 60.05664, "2025-01": 18.117539999999998, "2025-02": 0.0, "2025-03": 0.0}, "两英王新华": {"2024-04": 3.0, "2024-05": 3.268, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.75656, "2024-10": 27.7516, "2024-11": 19.9584, "2024-12": 0.0, "2025-01": 38.1024, "2025-02": 0.0, "2025-03": 0.0}, "中宝": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 35.10864, "2024-08": 14.9688, "2024-09": 39.9168, "2024-10": 0.775, "2024-11": 30.087600000000002, "2024-12": 0.0, "2025-01": 12.40407, "2025-02": 0.0, "2025-03": 5.0}, "丰裕布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "于凤纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 7.0, "2025-02": 0.0, "2025-03": 4.275}, "亨瑞": {"2024-04": 0.0, "2024-05": 0.025, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "众鑫和": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 29.9376, "2024-07": 22.9, "2024-08": 64.1844, "2024-09": 162.99632, "2024-10": 126.78744, "2024-11": 21.55, "2024-12": 24.176879999999997, "2025-01": 14.072, "2025-02": 10.0, "2025-03": 33.7701}, "佰龙实业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 10.7, "2025-02": 0.0, "2025-03": 0.0}, "佳诚布行": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.1, "2025-03": 0.0}, "俊平织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 1.17936, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "俊龙纺织": {"2024-04": 4.536, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 14.968800000000002, "2024-09": 9.9792, "2024-10": 21.0, "2024-11": 31.96052, "2024-12": 8.0, "2025-01": 4.0, "2025-02": 10.0, "2025-03": 12.25}, "信锋织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 1.04328, "2025-03": 0.0}, "全胜纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.58136, "2024-12": 19.278, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 9.9792}, "兴业织造（江白弟）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "刘云航": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "刘太平": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "创尚品": {"2024-04": 12.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "创辉织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.9484, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 14.5204, "2025-03": 1.9958399999999998}, "卓佳烽": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.86184, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "卓圣荣": {"2024-04": 14.1604, "2024-05": 0.0, "2024-06": 2.7216, "2024-07": 2.8, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "厦门市鑫锦和工贸有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "厦门海溢针纺织品有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "厦门炜燚贸易有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "厦门爱华顿进出口贸易有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "厦门纳新贸易有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "合成纺织（许培佳）": {"2024-04": 0.0, "2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "启发纱行": {"2024-04": 29.484, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 89.00577, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "启诚布行": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "吴汉如": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 14.10696, "2025-01": 5.8968, "2025-02": 0.0, "2025-03": 0.0}, "和兴（陈楚雄）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "哩哩美": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.025, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "嘉宝宏纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "大纺纺织": {"2024-04": 7.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.0}, "大鑫纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 11.9792, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "天栩布行": {"2024-04": 89.60679, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "天辰纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 34.9272, "2024-11": 11.275739999999999, "2024-12": 9.9792, "2025-01": 9.9792, "2025-02": 9.9792, "2025-03": 0.0}, "孙龙": {"2024-04": 4.7752, "2024-05": 6.31368, "2024-06": 5.5, "2024-07": 0.0, "2024-08": 22.02248, "2024-09": 24.0708, "2024-10": 12.89596, "2024-11": 8.30083, "2024-12": 5.35048, "2025-01": 1.5, "2025-02": 7.9, "2025-03": 4.225}, "宏信达织造": {"2024-04": 23.814, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.4432, "2024-08": 20.049120000000002, "2024-09": 14.0616, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "宝乐赞": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.0}, "宝来贸易（黄宝昌）": {"2024-04": 0.0, "2024-05": 3.1752, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 7.484399999999999, "2025-03": 2.0}, "宠得宝": {"2024-04": 14.742, "2024-05": 22.70835, "2024-06": 18.3708, "2024-07": 0.0, "2024-08": 15.01416, "2024-09": 9.9792, "2024-10": 4.9896, "2024-11": 0.0, "2024-12": 5.80608, "2025-01": 9.9792, "2025-02": 5.80608, "2025-03": 4.98393}, "宣龙纺织": {"2024-04": 0.0, "2024-05": 33.0, "2024-06": 5.5, "2024-07": 2.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 22.65, "2024-11": 9.0, "2024-12": 38.0, "2025-01": 66.0, "2025-02": 0.0, "2025-03": 66.0}, "富兴纺织（陈明川）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.0824, "2024-11": 0.0, "2024-12": 3.81024, "2025-01": 3.0, "2025-02": 2.0, "2025-03": 0.0}, "尊马": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "崔永功": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.5}, "常州旭荣针织印染有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "广东协骅制衣有限公司": {"2024-04": 6.903359999999999, "2024-05": 23.06016, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 5.03496, "2024-11": 5.04288, "2024-12": 10.99966, "2025-01": 0.0, "2025-02": 5.0, "2025-03": 0.0}, "广东纱纤亿纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "广利布行": {"2024-04": 12.17727, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 20.09448, "2024-10": 10.8864, "2024-11": 0.0, "2024-12": 9.9792, "2025-01": 0.0, "2025-02": 11.793600000000001, "2025-03": 8.52768}, "广州市爱纱进出口贸易有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "庄儒锋": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 5.0, "2024-07": 15.0, "2024-08": 2.0, "2024-09": 16.55, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "庄凯斌": {"2024-04": 0.0, "2024-05": 21.18312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 22.95216, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "庄楚鹏": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 41.45, "2024-11": 10.125, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.025}, "庄育雄": {"2024-04": 0.0, "2024-05": 3.03912, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.025, "2024-12": 5.57928, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "康平祥": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "康雅纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 12.1648, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "张俊强": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 1.6, "2024-08": 0.6350399999999999, "2024-09": 4.95, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.8250000000000001, "2025-01": 0.0, "2025-02": 6.0, "2025-03": 1.125}, "张凤泉": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "张小龙": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "张楠": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "张衍波": {"2024-04": 0.0, "2024-05": 0.6, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.08864, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.85}, "彬盛织厂": {"2024-04": 13.03912, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 20.9792, "2024-11": 9.9146, "2024-12": 24.948, "2025-01": 0.0, "2025-02": 23.2254, "2025-03": 0.0}, "恒源纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.0}, "振炜布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.25, "2024-11": 9.175, "2024-12": 5.975, "2025-01": 3.9, "2025-02": 5.55, "2025-03": 1.875}, "新东诚纺织": {"2024-04": 0.0, "2024-05": 29.484, "2024-06": 29.9376, "2024-07": 63.776160000000004, "2024-08": 29.9376, "2024-09": 28.48608, "2024-10": 36.10656, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 16.325, "2025-03": 34.0}, "新意": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 2.35, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "新正": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 30.34584, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0}, "新鹏": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 1.5, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.5, "2025-03": 0.0}, "旭锋纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "时业(东欣)": {"2024-04": 62.598960000000005, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 14.9688, "2024-08": 0.0, "2024-09": 13.4, "2024-10": 16.634576, "2024-11": 24.634528, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 38.0}, "时业针织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "旺佳布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.85144, "2024-10": 6.9854400000000005, "2024-11": 0.75, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "昆山崴鸿贸易有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "明丰纱行": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "星源织造": {"2024-04": 34.0, "2024-05": 29.484, "2024-06": 54.837999999999994, "2024-07": 49.03416, "2024-08": 212.058, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 144.2448, "2025-01": 78.0192, "2025-02": 84.36959999999999, "2025-03": 30.0}, "晋江青阳志胜服饰公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "晨晖布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 9.9792, "2024-08": 9.20808, "2024-09": 13.154399999999999, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁兴盛布业有限公司": {"2024-04": 5.0, "2024-05": 21.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁宝拉（陈坤海）": {"2024-04": 10.16052, "2024-05": 1.125, "2024-06": 15.05952, "2024-07": 6.9854400000000005, "2024-08": 6.07824, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁市东鸿织造制衣有限公司": {"2024-04": 29.484, "2024-05": 19.5048, "2024-06": 44.9064, "2024-07": 14.99715, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 29.121119999999998, "2025-03": 5.0}, "普宁市和钜纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁市祥泰纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 4.9896, "2024-08": 23.1336, "2024-09": 49.94136, "2024-10": 14.9688, "2024-11": 0.0, "2024-12": 32.8, "2025-01": 31.0, "2025-02": 6.0, "2025-03": 0.0}, "普宁市而立织造制衣有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁市荣煌织造有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 18.144, "2024-08": 5.0, "2024-09": 23.5872, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 19.9584, "2025-03": 46.0}, "普宁恒大": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁长泰": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 1.007856, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "普宁陈进飞": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "李新典": {"2024-04": 5.0, "2024-05": 5.99792, "2024-06": 0.5, "2024-07": 1.0, "2024-08": 1.05, "2024-09": 13.925, "2024-10": 5.0, "2024-11": 0.0, "2024-12": 5.8, "2025-01": 0.0, "2025-02": 2.0, "2025-03": 9.6}, "李晓鹏": {"2024-04": 11.993751, "2024-05": 0.36288, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "李贵荣": {"2024-04": 8.34624, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "李雪利": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 2.268, "2024-07": 0.0, "2024-08": 4.8535200000000005, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 3.9916799999999997, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "杜城织造": {"2024-04": 0.0, "2024-05": 10.206, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 15.4224, "2024-09": 19.793599999999998, "2024-10": 23.144, "2024-11": 1.134, "2024-12": 0.72576, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "杨永鹏": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 41.0, "2024-07": 149.0, "2024-08": 326.72368, "2024-09": 199.25, "2024-10": 21.9548, "2024-11": 10.82028, "2024-12": 112.625, "2025-01": 659.0, "2025-02": 818.175, "2025-03": 105.65}, "枫林纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 10.27304, "2024-09": 21.9996, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 5.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "格凯（制衣）实业有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 36.288, "2024-08": 0.0, "2024-09": 29.9376, "2024-10": 29.9376, "2024-11": 0.225, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0}, "正盛纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.9896, "2024-11": 10.25136, "2024-12": 24.948, "2025-01": 8.21016, "2025-02": 20.0, "2025-03": 5.0}, "汇腾纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.9896, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头伟兴针织厂": {"2024-04": 29.484, "2024-05": 0.0, "2024-06": 22.5, "2024-07": 11.58136, "2024-08": 24.01832, "2024-09": 2.0, "2024-10": 64.25, "2024-11": 0.0, "2024-12": 3.0911999999999997, "2025-01": 3.0, "2025-02": 0.0, "2025-03": 15.0}, "汕头兴发针织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 63.897909999999996, "2024-08": 26.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头利标布业有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头吉祥布业有限公司": {"2024-04": 58.968, "2024-05": 29.121119999999998, "2024-06": 10.0, "2024-07": 52.288, "2024-08": 0.9, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头市丹洋纺织有限公司": {"2024-04": 44.544, "2024-05": 58.12704, "2024-06": 66.0, "2024-07": 32.0, "2024-08": 0.0, "2024-09": 56.081599999999995, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头市建胜针织服装有限公司": {"2024-04": 24.7424889, "2024-05": 2.7216, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 8.20728, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头市德利兴纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头市潮南区亚平纺织有限公司": {"2024-04": 2.6, "2024-05": 4.17312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头市潮南区金怡丰实业有限公司": {"2024-04": 3.6268, "2024-05": 0.0, "2024-06": 5.0, "2024-07": 0.0, "2024-08": 4.3, "2024-09": 10.6, "2024-10": 8.025, "2024-11": 10.0, "2024-12": 89.0, "2025-01": 47.325, "2025-02": 10.55, "2025-03": 55.0}, "汕头市茂易盛贸易有公司": {"2024-04": 84.53760000000001, "2024-05": 18.144, "2024-06": 11.078240000000001, "2024-07": 14.9688, "2024-08": 6.517519999999999, "2024-09": 0.925, "2024-10": 74.98409, "2024-11": 41.59512, "2024-12": 20.23992, "2025-01": 0.0, "2025-02": 4.17312, "2025-03": 38.4426}, "汕头市裕盛纺织有限公司": {"2024-04": 129.296, "2024-05": 43.484, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 33.8, "2024-09": 16.9, "2024-10": 10.425, "2024-11": 22.5, "2024-12": 42.0, "2025-01": 45.5, "2025-02": 0.0, "2025-03": 66.3}, "汕头市西华纺织有限公司": {"2024-04": 0.0, "2024-05": 82.82736, "2024-06": 78.4528, "2024-07": 81.0816, "2024-08": 9.66168, "2024-09": 246.46545, "2024-10": 73.71, "2024-11": 67.67712, "2024-12": 63.3288, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头立华纺织": {"2024-04": 10.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.010999999999999, "2024-10": 34.97256, "2024-11": 47.208079999999995, "2024-12": 142.89885, "2025-01": 0.0, "2025-02": 1.1, "2025-03": 0.0}, "汕头郑少彬": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头金纺纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "汕头隆鑫纺织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.959679999999999, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "江迅": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "泉州旭泰纺织品有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "泽威纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 3.03912, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "洪兴": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "深圳市苏吉思服饰有限公司": {"2024-04": 5.8968, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.0, "2024-09": 0.0, "2024-10": 1.7, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "添盛织厂": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "温州旺姿彩针织有限公司": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "源发纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "源润织厂": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "源锐织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 29.484, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "滋兴纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 18.01728, "2024-09": 0.0, "2024-10": 3.0, "2024-11": 3.6230400000000005, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 6.486479999999999, "2025-03": 0.0}, "滨诚纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 15.4224, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0844799999999997, "2024-10": 5.39784, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "潘百收": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "潮丰布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "炜灿": {"2024-04": 0.0, "2024-05": 10.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "烨达纱行": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.536, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "焕佳织造": {"2024-04": 17.77167, "2024-05": 77.92281, "2024-06": 91.80864, "2024-07": 156.58272, "2024-08": 50.482, "2024-09": 341.76256, "2024-10": 162.48760000000001, "2024-11": 73.87519999999999, "2024-12": 100.14533, "2025-01": 119.7504, "2025-02": 84.36959999999999, "2025-03": 0.0}, "煜丰织造": {"2024-04": 14.9688, "2024-05": 25.174799999999998, "2024-06": 5.0, "2024-07": 14.9688, "2024-08": 20.0, "2024-09": 8.0, "2024-10": 19.9688, "2024-11": 15.6, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 15.125, "2025-03": 0.0}, "王为峰": {"2024-04": 3.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 9.9792, "2024-10": 5.05, "2024-11": 0.0, "2024-12": 2.0, "2025-01": 1.5, "2025-02": 0.0, "2025-03": 4.6}, "王伟杰": {"2024-04": 0.0, "2024-05": 9.9792, "2024-06": 19.9584, "2024-07": 30.83346, "2024-08": 7.983360000000001, "2024-09": 4.34133, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "王少祥": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "百得布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "百荣布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "益电（罗楚标）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "盛扬纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 2.0, "2024-09": 0.0, "2024-10": 6.25, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 5.0, "2025-02": 0.0, "2025-03": 0.0}, "粤彩布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "粤得利织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 3.725, "2025-03": 0.0}, "纺纶织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 6.9854400000000005, "2024-08": 16.03912, "2024-09": 12.81232, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "经纶(亿家布行）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "联盈布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 10.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 33.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "肖柏林": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.007856, "2024-12": 8.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 9.025}, "育兴胜布业（郑龙生）": {"2024-04": 7.7112, "2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "胜兴源": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "艺泰": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 15.625, "2025-02": 0.0, "2025-03": 0.0}, "范文光": {"2024-04": 0.32480000000000003, "2024-05": 0.0, "2024-06": 2.0412, "2024-07": 0.0, "2024-08": 23.97088, "2024-09": 16.5564, "2024-10": 3.68912, "2024-11": 22.308120000000002, "2024-12": 18.22352, "2025-01": 71.26176000000001, "2025-02": 4.0, "2025-03": 5.82292}, "荣达欣织造": {"2024-04": 0.0, "2024-05": 29.0512, "2024-06": 92.22224, "2024-07": 41.3192, "2024-08": 97.99464, "2024-09": 80.10576, "2024-10": 79.66544, "2024-11": 63.0, "2024-12": 46.7208, "2025-01": 19.9584, "2025-02": 46.90224, "2025-03": 31.29462}, "蒋昌龙": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "裕联纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "诗维雅": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "象牙盾": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.9, "2024-08": 20.05, "2024-09": 87.34792, "2024-10": 33.4, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 3.425}, "赖俊青": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "赖锋宏": {"2024-04": 2.0563200000000004, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "赵华生": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 33.0, "2024-10": 27.1, "2024-11": 35.9, "2024-12": 32.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "赵廷波": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "连胜布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 8.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "郑晓鹏": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 9.55, "2024-09": 3.03552, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 5.3, "2025-01": 44.0, "2025-02": 114.225, "2025-03": 32.5}, "郑燃": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.5, "2024-11": 27.1512, "2024-12": 26.208599999999997, "2025-01": 9.9896, "2025-02": 2.268, "2025-03": 0.5}, "郭文勇": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 2.268, "2024-10": 9.072, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "郭楚波织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 19.9584, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 18.144, "2025-02": 32.45, "2025-03": 0.0}, "金佳艺纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "金佳鹏": {"2024-04": 20.0, "2024-05": 0.0, "2024-06": 7.25, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.2576, "2024-10": 17.2368, "2024-11": 6.3504, "2024-12": 2.0, "2025-01": 7.55, "2025-02": 33.0, "2025-03": 2.0}, "金泉纺织（杨金泉）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "鑫源布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "锦华贸易": {"2024-04": 16.50736, "2024-05": 2.5401599999999998, "2024-06": 12.7008, "2024-07": 12.85, "2024-08": 8.79984, "2024-09": 16.072, "2024-10": 26.17896, "2024-11": 46.44864, "2024-12": 5.268, "2025-01": 0.0, "2025-02": 3.51776, "2025-03": 0.0}, "锦虹织造": {"2024-04": 13.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "锦隆织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 9.9792, "2025-03": 30.958199999999998}, "闽兴隆纱线行(施友恒)": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 32.9376, "2024-07": 0.0, "2024-08": 5.4432, "2024-09": 0.9979199999999999, "2024-10": 1.22472, "2024-11": 34.20144, "2024-12": 0.0, "2025-01": 11.7936, "2025-02": 29.937599999999996, "2025-03": 31.9788}, "陈东立": {"2024-04": 5.0, "2024-05": 1.0, "2024-06": 17.25, "2024-07": 0.0, "2024-08": 40.001850000000005, "2024-09": 17.73576, "2024-10": 21.86664, "2024-11": 7.75656, "2024-12": 19.66972, "2025-01": 15.24728, "2025-02": 26.6, "2025-03": 5.0}, "陈东筹": {"2024-04": 10.02456, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 2.0, "2024-08": 37.35276, "2024-09": 10.02456, "2024-10": 0.0, "2024-11": 0.18144, "2024-12": 106.693, "2025-01": 12.6412, "2025-02": 24.16875, "2025-03": 22.29509}, "陈亮洲布业": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 12.247200000000001, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈名丰": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈政钢": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈新达": {"2024-04": 9.9792, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈桂洲": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈楚鑫": {"2024-04": 22.5792, "2024-05": 3.0, "2024-06": 7.0, "2024-07": 7.0, "2024-08": 5.5, "2024-09": 0.0, "2024-10": 5.98752, "2024-11": 3.9916799999999997, "2024-12": 25.2728, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈泽宏": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.0, "2024-11": 3.4020000000000006, "2024-12": 6.07824, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈泽锐": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "陈炎生（宇盛纺织）": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 1.0, "2024-07": 0.0, "2024-08": 12.225, "2024-09": 10.275, "2024-10": 3.075, "2024-11": 13.29048, "2024-12": 20.97684, "2025-01": 12.0824, "2025-02": 0.0, "2025-03": 0.0}, "陈特扬织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 5.0, "2024-11": 9.979199999999999, "2024-12": 4.9896, "2025-01": 5.76072, "2025-02": 0.0, "2025-03": 0.0}, "陈良强": {"2024-04": 20.0736, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.0, "2024-12": 10.875, "2025-01": 4.0, "2025-02": 42.7, "2025-03": 1.1}, "陈荣宣": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.725, "2024-12": 2.3, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 10.0}, "马泽帆": {"2024-04": 5.17104, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "高明": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "鸿兴纱行（陈宏亮）": {"2024-04": 0.0, "2024-05": 2.08656, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "鸿盛": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 26.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "鹏盛泰": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.5, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.425}, "黄国泽": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "黄旭健": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "黄晓燕": {"2024-04": 9.9792, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 10.3, "2025-03": 0.0}, "黄育光（龙正）": {"2024-04": 25.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 41.504400000000004, "2024-09": 33.43032, "2024-10": 0.0, "2024-11": 16.05744, "2024-12": 4.44528, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0}, "鼎和纺织": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 2.0, "2025-01": 1.9968, "2025-02": 4.012512, "2025-03": 0.0}, "鼎翔织造": {"2024-04": 0.0, "2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 4.9896, "2025-01": 9.9792, "2025-02": 0.0, "2025-03": 0.0}};
+
+        function filterTable() {
+            const client = document.getElementById('clientFilter').value.toLowerCase();
+            const salesman = document.getElementById('salesmanFilter').value.toLowerCase();
+            const rows = document.querySelectorAll('#dataBody tr');
+
+            rows.forEach(row => {
+                const showRow = 
+                    row.dataset.client.toLowerCase().includes(client) &&
+                    row.dataset.salesman.toLowerCase().includes(salesman);
+                row.style.display = showRow ? '' : 'none';
+            });
+        }
+
+        function exportData() {
+            let months = [];
+            if (Object.keys(monthlyData).length > 0) {
+                const sampleClient = Object.keys(monthlyData)[0];
+                if (sampleClient) {
+                    months = Object.keys(monthlyData[sampleClient]).sort((a, b) => {
+                        const [aYear, aMonth] = a.split('-').map(Number);
+                        const [bYear, bMonth] = b.split('-').map(Number);
+                        return aYear - bYear || aMonth - bMonth;
+                    });
+                }
+            }
+
+            const headers = [
+                '订购商', '部门', '业务员', '最后交易', '本季销售额', '季度环比', 
+                '本月吨数', '吨数差额', '客户分类', '预警信号', 
+                ...months
+            ];
+
+            const rows = Array.from(document.querySelectorAll('#dataBody tr')).map(row => {
+                const cells = row.cells;
+                const client = cells[0].innerText;
+                const clientData = monthlyData[client] || {};
+
+                const monthlyValues = months.map(month => 
+                    (clientData[month] || 0).toFixed(1)
+                );
+
+                return [
+                    client,
+                    cells[1].innerText,
+                    cells[2].innerText,
+                    cells[3].innerText,
+                    cells[4].innerText.replace('¥', ''),
+                    cells[5].innerText.replace('%', ''),
+                    cells[6].innerText.replace('吨', ''),
+                    cells[7].innerText.replace(/[^0-9.-]/g, ''),
+                    cells[8].innerText,
+                    cells[9].innerText,
+                    ...monthlyValues
+                ].map(v => `"${v}"`);
+            });
+
+            const csvContent = [
+                headers.join(','),
+                ...rows.map(row => row.join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = '客户数据_2025-03.csv';
+            link.click();
+        }
+
+        function showSalesChart(client) {
+            const chartData = monthlyData[client];
+            const months = Object.keys(chartData);
+            const values = Object.values(chartData);
+
+            const win = window.open('', client+'_销售趋势', 'width=800,height=600');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>${client}销售趋势</title>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
+                </head>
+                <body>
+                    <h3>${client} - 近12个月销售趋势（吨）</h3>
+                    <canvas id="salesChart"></canvas>
+                    <script>
+                        const ctx = document.getElementById('salesChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: ${JSON.stringify(months)},
+                                datasets: [{
+                                    label: '月销量（吨）',
+                                    data: ${JSON.stringify(values)},
+                                    borderColor: '#3498db',
+                                    borderWidth: 2
+                                }]
+                            }
+                        });
+                    <\/script>
+                </body>
+                </html>
+            `);
+        }
+
+        function openComplaintPage() {
+            const win = window.open('', '客诉详情', 'width=800,height=600');
+            win.document.write(`
+                <html>
+                <head>
+                    <title>客诉详情</title>
+                </head>
+                <body>
+                    <h3>客诉详情</h3>
+                    
+    <table>
+        <thead>
+            <tr>
+                <th>反馈时间</th>
+                <th>业务员</th>
+                <th>部门</th>
+                <th>客户名称</th>
+                <th>出货日期</th>
+                <th>产品名称规格</th>
+                <th>发货数量</th>
+                <th>不合格品描述及原因分析</th>
+                <th>客户最终解决方案落实情况</th>
+                <th>问题柜号</th>
+                <th>供应商最终赔偿方案</th>
+                <th>不良数量</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <td>2025-01-15</td>
+            <td>洪乾坤</td>
+            <td>佛山办</td>
+            <td>新东日布行</td>
+            <td>2025-01-03 00:00:00</td>
+            <td>升华华孚高紧40L2463345</td>
+            <td>66吨</td>
+            <td>一是因粗细节原因织造断头多，二是布面横条</td>
+            <td>已织成的布我司负责与客户协商解决。上述未开包的，已退回我司仓库</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>53.95吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-12-20</td>
+            <td>陈少豪</td>
+            <td>潮汕办</td>
+            <td>锦华贸易</td>
+            <td>2024-9-8至2024-10-5</td>
+            <td>海华精40</td>
+            <td>10吨</td>
+            <td>纱线3月到的货，由于存放时间过长，有初步发霉现象，存在纱线退捻易断的问题，开机效率低，客户不愿意做。</td>
+            <td>18件已拆包上机按原价23350结算，其余382建按降1千22350让工厂帮忙用掉。
+（此单客诉赔付金额9552元，请予以客户锦华平账。）</td>
+            <td>豫HQ1579</td>
+            <td>由于到货时间超过半年，储存时间和条件不明，产生发霉退捻现象厂家不予负责。</td>
+            <td>10吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-12-02</td>
+            <td>洪智</td>
+            <td>福建办</td>
+            <td>福建三顺纺织有限公司</td>
+            <td>2024-04-16 00:00:00</td>
+            <td>魏桥高配32</td>
+            <td>29.484吨</td>
+            <td>包装完好，部分纱粒存在外层乱纱现象，原因分析可能是运输途中箱内摩擦导致</td>
+            <td>赔付工人工钱360元，废纱客户自行处理</td>
+            <td>24Z30010</td>
+            <td>nan</td>
+            <td>60粒</td>
+        </tr>
+        
+        <tr>
+            <td>2024-11-27</td>
+            <td>许书沛</td>
+            <td>南通办</td>
+            <td>上海华骥工贸有限公司</td>
+            <td>2024-11-26 00:00:00</td>
+            <td>宝龙 全棉针织普梳32支包漂白</td>
+            <td>56件</td>
+            <td>并纱由于断头率高。</td>
+            <td>发了56件，退回52件换新到的宝龙32梭织的52件。</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>56件</td>
+        </tr>
+        
+        <tr>
+            <td>2024-11-13</td>
+            <td>洪智</td>
+            <td>福建办</td>
+            <td>福建三顺纺织有限公司</td>
+            <td>2024-11-04 00:00:00</td>
+            <td>福皇普梳32</td>
+            <td>8.47872吨</td>
+            <td>织造过程中发现规律横纹，推测为配棉问题</td>
+            <td>未开箱88件退货</td>
+            <td>TGBU5170999</td>
+            <td>nan</td>
+            <td>276吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-11-13</td>
+            <td>张赐锋</td>
+            <td>潮汕办</td>
+            <td>天辰纺织</td>
+            <td>2024-10-27 00:00:00</td>
+            <td>魏桥32精紧</td>
+            <td>13.9吨</td>
+            <td>坯布有发现起横条，不规律，不整条会，间断的。部分坯布没发现，染色之后变明显。目前有60箱未上机做，200条坯布未染（与客户沟通后此单售后按3吨计，未做纱线和坯布后面有问题自己负责）其余已做成品的发现大概3吨有问题比较大，不能避裁。（一条布有一两处起横的属小问题，可以在起横处裁断）</td>
+            <td>3吨布在后染整做多一道压光工艺，费用800元每吨。总费用2400元。</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>3吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-06-24</td>
+            <td>陈少豪</td>
+            <td>潮汕办</td>
+            <td>A客（庄育平）</td>
+            <td>2024-04-24 00:00:00</td>
+            <td>三叉戟精紧32</td>
+            <td>2.32吨</td>
+            <td>本身此批货物为之前闽兴隆退货，二次销售给A客。纱线有轻微显现发霉现象，上机断线做不了，多次尝试无果。</td>
+            <td>2.32吨*2000元=4640元</td>
+            <td>ONEU0066025</td>
+            <td>nan</td>
+            <td>2.32吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-06-24</td>
+            <td>吴建炜</td>
+            <td>本部</td>
+            <td>佛山铭意纺织有限公司</td>
+            <td>2024-05-28 00:00:00</td>
+            <td>奥特曼精紧26</td>
+            <td>7.73568吨</td>
+            <td>客户铭意做出来有白色尼龙草，跟客户协商帮忙用，但是做成衣服还是有很多尼龙草，处理的费用比较高</td>
+            <td>剩下未开包的64件申请退回仓库</td>
+            <td>OOLU9412048</td>
+            <td>nan</td>
+            <td>3.03552吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-04-12</td>
+            <td>吴建炜</td>
+            <td>佛山办</td>
+            <td>广东愿景纺织有限公司</td>
+            <td>2024-01-01 00:00:00</td>
+            <td>苏丹精紧32</td>
+            <td>147吨</td>
+            <td>染宝蓝，早红等多缸会有间段性的起横明显，初步判断是纱的问题。</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>44.81568吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-04-11</td>
+            <td>陈晓明</td>
+            <td>南通办</td>
+            <td>福建省晋江市嘉雄服装织造有限公司</td>
+            <td>2024-03-11 00:00:00</td>
+            <td>埃尔密精梳21支</td>
+            <td>8.21016吨</td>
+            <td>织造过程胚布过程没有发现横条，染色后出现横条.</td>
+            <td>nan</td>
+            <td>FFAU3194068</td>
+            <td>nan</td>
+            <td>8.21016吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-04-07</td>
+            <td>许书沛</td>
+            <td>南通办</td>
+            <td>绍兴市旭彤纺织有限公司</td>
+            <td>3月16日、3月17日
+3月19日、3月22日</td>
+            <td>东发普32支</td>
+            <td>22.113吨</td>
+            <td>横条色差问题：卫衣面纱、罗纹两个布种，毛坯布发现有横条。已染色黑灰、丈青、酒红三个颜色均明显的横条色差，染米白色未发现。</td>
+            <td>nan</td>
+            <td>AXEU6017872</td>
+            <td>nan</td>
+            <td>22.113吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-04-06</td>
+            <td>洪智</td>
+            <td>福建办</td>
+            <td>福建三顺纺织有限公司</td>
+            <td>2024-02-28 00:00:00</td>
+            <td>福蓉 紧密普32针织包漂</td>
+            <td>4.536吨</td>
+            <td>生产过程中纱线打针，一次拉断五六根针，做了3个班，发生了3次打针。原因可能是紧密纺捻度较高,不适合客户订单。</td>
+            <td>要求余货①BMOU6038730批55件
+②SEGU6498559批107件，共计162件退货退款。</td>
+            <td>BMOU6038730/SEGU6498559</td>
+            <td>nan</td>
+            <td>4.536吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-28</td>
+            <td>陈晓明</td>
+            <td>福建办</td>
+            <td>泉州活源服装有限公司</td>
+            <td>2024-03-22 00:00:00</td>
+            <td>东发32支</td>
+            <td>3.01644吨</td>
+            <td>织造过程胚布过程没有发现横条，染色后出现严重横条</td>
+            <td>换纱并赔偿损失，在下一单中扣6000元左右作为赔偿。</td>
+            <td>AXEU6015437</td>
+            <td>nan</td>
+            <td>3.01644吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-25</td>
+            <td>洪智</td>
+            <td>福建办代理</td>
+            <td>福建康威针纺有限公司</td>
+            <td>2024-03-16 00:00:00</td>
+            <td>畅达普40</td>
+            <td>10吨</td>
+            <td>粗节太多</td>
+            <td>退货没用的7吨到厂里</td>
+            <td>豫NL3717</td>
+            <td>退货退款</td>
+            <td>10吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-25</td>
+            <td>陈晓明</td>
+            <td>潮汕办</td>
+            <td>泉州市左右逢袁纺织品有限公司</td>
+            <td>2023-12-22 00:00:00</td>
+            <td>睿泽紧密精梳40支</td>
+            <td>34吨</td>
+            <td>粗细严重，成品布面不能用，被客户退回成品部3吨，胚布还在统计中可能最后选择染黑色尽量减少损失。</td>
+            <td>5.27魏桥高配40每吨抵扣200元</td>
+            <td>晋M57921</td>
+            <td>nan</td>
+            <td>34吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-24</td>
+            <td>洪智</td>
+            <td>潮汕办</td>
+            <td>赵明伦</td>
+            <td>2024-03-19 00:00:00</td>
+            <td>三叉戟紧密精32</td>
+            <td>2.0416吨</td>
+            <td>乱纱太多</td>
+            <td>退货</td>
+            <td>ONEU1042049</td>
+            <td>nan</td>
+            <td>2.0416吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-22</td>
+            <td>洪智</td>
+            <td>福建办</td>
+            <td>福建三顺纺织有限公司</td>
+            <td>2024-02-28 00:00:00</td>
+            <td>东发32包漂白</td>
+            <td>10.02456吨</td>
+            <td>布面横纹，黄白纱，原因可能是纱厂质量把控不良。</td>
+            <td>染完布面横条严重，未用的120件退货退款。本次客诉总计分批退货200+120件，320件。</td>
+            <td>FFAU3422390</td>
+            <td>nan</td>
+            <td>10.02456吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-03-20</td>
+            <td>陈晓明</td>
+            <td>福建办</td>
+            <td>晋江市中天服装织造有限公司</td>
+            <td>2024-02-28 00:00:00</td>
+            <td>东发32支</td>
+            <td>3.15252吨</td>
+            <td>织造过程胚布过程没有发现横条，染色后出现严重横条</td>
+            <td>nan</td>
+            <td>FFAU3422390</td>
+            <td>nan</td>
+            <td>3.15252吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-01-25</td>
+            <td>吴建炜</td>
+            <td>佛山办</td>
+            <td>惠州市合顺景纺织有限公司</td>
+            <td>2024-01-20 00:00:00</td>
+            <td>哪哈紧密精32针织可漂</td>
+            <td>9.85吨</td>
+            <td>染深色，布面有尼龙草。</td>
+            <td>换货</td>
+            <td>OOCU8608596</td>
+            <td>nan</td>
+            <td>9.65吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-01-25</td>
+            <td>吴建炜</td>
+            <td>佛山办</td>
+            <td>惠州市祥业针织有限公司</td>
+            <td>2024-01-16 00:00:00</td>
+            <td>赛尔紧密精32针织可漂</td>
+            <td>22.5792吨</td>
+            <td>布面发现一匹布有60多个尼龙草，布面死棉粒多。</td>
+            <td>换货</td>
+            <td>TCKU6921410</td>
+            <td>nan</td>
+            <td>13.4064吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-01-25</td>
+            <td>吴建炜</td>
+            <td>佛山办</td>
+            <td>李友强</td>
+            <td>2024-01-18 00:00:00</td>
+            <td>福协高紧32</td>
+            <td>9.575吨</td>
+            <td>客户反馈毛羽多，粗幼纱严重，要退货</td>
+            <td>弥补150元每吨给客户，合计金额1436.25元已退款给客户2024-1-25</td>
+            <td>宁E93352</td>
+            <td>向供应商索赔150元每吨</td>
+            <td>9.575吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-01-08</td>
+            <td>陈晓明</td>
+            <td>福建办</td>
+            <td>泉州市经译针织有限责任公司</td>
+            <td>2023-12-11 00:00:00</td>
+            <td>银丰40支</td>
+            <td>32吨</td>
+            <td>出现表面乱纱坏纱</td>
+            <td>剥开用下去损耗有点大，适当给与优惠。</td>
+            <td>nan</td>
+            <td>nan</td>
+            <td>32吨</td>
+        </tr>
+        
+        <tr>
+            <td>2024-01-05</td>
+            <td>陈晓明</td>
+            <td>福建办</td>
+            <td>福建省晋江市焱懋布业有限公司</td>
+            <td>2023-12-23 00:00:00</td>
+            <td>埃尔金精梳32支</td>
+            <td>0.4536吨</td>
+            <td>破洞很多</td>
+            <td>安排退货0.18144吨</td>
+            <td>HMMU6404210</td>
+            <td>没有</td>
+            <td>0.18144吨</td>
+        </tr>
+        
+        </tbody>
+    </table>
+    
+                </body>
+                </html>
+            `);
+        }
+
+        function openDepartmentPage(department) {
+            window.open(department + '_details.html', '_blank');
+        }
+    </script>
+</body>
+</html>
+    

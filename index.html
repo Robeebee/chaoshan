@@ -184,7 +184,7 @@
         <button class="department-btn" onclick="openDepartmentPage('潮汕办')">潮汕办</button>
         <button class="department-btn" onclick="openDepartmentPage('佛山办')">佛山办</button>
         <button class="department-btn" onclick="openDepartmentPage('南通办')">南通办</button>
-        <span style="float:right;color:#666;">数据更新至: 2025-04-03</span>
+        <span style="float:right;color:#666;">数据更新至: 2025-04-07</span>
     </div>
 
     <table>
@@ -213,11 +213,11 @@
             </td>
             <td>潮汕办</td>
             <td>陈少豪</td>
-            <td>2025-04-02</td>
-            <td>¥640,950</td>
+            <td>2025-04-06</td>
+            <td>¥665,138</td>
             <td>-98%</td>
-            <td>38.5吨</td>
-            <td class="negative">-430.4吨</td>
+            <td>39.5吨</td>
+            <td class="negative">-429.3吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
                 季度降幅98%
@@ -233,14 +233,54 @@
             </td>
             <td>福建办</td>
             <td>洪文革</td>
-            <td>2025-04-02</td>
-            <td>¥207,000</td>
+            <td>2025-04-07</td>
+            <td>¥647,550</td>
             <td>+0%</td>
-            <td>10.0吨</td>
-            <td class="positive">+10.0吨</td>
-            <td class="client-class 新客户">新客户</td>
+            <td>31.2吨</td>
+            <td class="positive">+31.2吨</td>
+            <td class="client-class 普通客户">普通客户</td>
             <td class="">
                 ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈东立">
+            <td onclick="showSalesChart('陈东立')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈东立
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-04-07</td>
+            <td>¥212,766</td>
+            <td>-80%</td>
+            <td>9.6吨</td>
+            <td class="negative">-0.4吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅80%
+            </td>
+        </tr>
+        
+        <tr data-department="福建办" 
+            data-salesman="洪文革" 
+            data-client="汕头市潮南区金怡丰实业有限公司">
+            <td onclick="showSalesChart('汕头市潮南区金怡丰实业有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头市潮南区金怡丰实业有限公司
+            </td>
+            <td>福建办</td>
+            <td>洪文革</td>
+            <td>2025-04-07</td>
+            <td>¥196,988</td>
+            <td>-93%</td>
+            <td>9.0吨</td>
+            <td class="negative">-66.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅93%
             </td>
         </tr>
         
@@ -261,6 +301,46 @@
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
                 季度降幅84%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="陈东筹">
+            <td onclick="showSalesChart('陈东筹')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈东筹
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-04-07</td>
+            <td>¥121,479</td>
+            <td>-92%</td>
+            <td>5.1吨</td>
+            <td class="negative">-22.3吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅92%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="众鑫和">
+            <td onclick="showSalesChart('众鑫和')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                众鑫和
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-04-01</td>
+            <td>¥108,000</td>
+            <td>-92%</td>
+            <td>5.0吨</td>
+            <td class="negative">-34.8吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅92%
             </td>
         </tr>
         
@@ -286,26 +366,6 @@
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
-            data-client="众鑫和">
-            <td onclick="showSalesChart('众鑫和')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                众鑫和
-            </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2025-04-01</td>
-            <td>¥108,000</td>
-            <td>-92%</td>
-            <td>5.0吨</td>
-            <td class="negative">-34.8吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅92%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
             data-client="三金鑫布业">
             <td onclick="showSalesChart('三金鑫布业')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -321,6 +381,26 @@
             <td class="client-class 腰部客户">腰部客户</td>
             <td class="warning">
                 季度降幅63%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="广利布行">
+            <td onclick="showSalesChart('广利布行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                广利布行
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-04-05</td>
+            <td>¥71,791</td>
+            <td>-87%</td>
+            <td>3.0吨</td>
+            <td class="negative">-8.5吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅87%
             </td>
         </tr>
         
@@ -346,6 +426,26 @@
         
         <tr data-department="潮汕办" 
             data-salesman="陈少豪" 
+            data-client="金佳鹏">
+            <td onclick="showSalesChart('金佳鹏')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                金佳鹏
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-04-06</td>
+            <td>¥41,300</td>
+            <td>-96%</td>
+            <td>2.0吨</td>
+            <td class="negative">-3.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅96%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
             data-client="陈新达">
             <td onclick="showSalesChart('陈新达')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -358,6 +458,66 @@
             <td>+0%</td>
             <td>2.0吨</td>
             <td class="positive">+2.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="">
+                ✅正常
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="新正">
+            <td onclick="showSalesChart('新正')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                新正
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-04-07</td>
+            <td>¥26,640</td>
+            <td>-97%</td>
+            <td>1.2吨</td>
+            <td class="negative">-31.8吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅97%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="郑燃">
+            <td onclick="showSalesChart('郑燃')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                郑燃
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2025-04-05</td>
+            <td>¥26,989</td>
+            <td>-90%</td>
+            <td>1.1吨</td>
+            <td class="positive">+0.6吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅90%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="旺佳布业">
+            <td onclick="showSalesChart('旺佳布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                旺佳布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2025-04-06</td>
+            <td>¥4,140</td>
+            <td>+0%</td>
+            <td>0.2吨</td>
+            <td class="positive">+0.2吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="">
                 ✅正常
@@ -386,41 +546,21 @@
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
-            data-client="煜丰织造">
-            <td onclick="showSalesChart('煜丰织造')" 
+            data-client="滨诚纺织">
+            <td onclick="showSalesChart('滨诚纺织')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                煜丰织造
+                滨诚纺织
             </td>
             <td>潮汕办</td>
             <td>张赐锋</td>
-            <td>2025-03-27</td>
+            <td>2025-03-25</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="negative">-12.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
+            <td class="negative">-2.4吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
                 季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="潮丰布业">
-            <td onclick="showSalesChart('潮丰布业')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                潮丰布业
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2023-02-27</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                770天未下单
             </td>
         </tr>
         
@@ -440,44 +580,64 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                739天未下单
+                740天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="滨诚纺织">
-            <td onclick="showSalesChart('滨诚纺织')" 
+            data-salesman="陈少豪" 
+            data-client="潮丰布业">
+            <td onclick="showSalesChart('潮丰布业')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                滨诚纺织
+                潮丰布业
             </td>
             <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2025-03-25</td>
+            <td>陈少豪</td>
+            <td>2023-02-27</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                771天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="A客（庄育平）">
+            <td onclick="showSalesChart('A客（庄育平）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                A客（庄育平）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-30</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="negative">-2.4吨</td>
-            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="negative">-2.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
                 季度降幅100%
             </td>
         </tr>
         
-        <tr data-department="本部棉纱部" 
+        <tr data-department="潮汕办" 
             data-salesman="陈少豪" 
-            data-client="滋兴纺织">
-            <td onclick="showSalesChart('滋兴纺织')" 
+            data-client="王为峰">
+            <td onclick="showSalesChart('王为峰')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                滋兴纺织
+                王为峰
             </td>
-            <td>本部棉纱部</td>
+            <td>潮汕办</td>
             <td>陈少豪</td>
-            <td>2025-02-19</td>
+            <td>2025-03-15</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
+            <td class="negative">-4.6吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
                 季度降幅100%
@@ -500,7 +660,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                336天未下单
+                337天未下单
             </td>
         </tr>
         
@@ -520,7 +680,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                237天未下单
+                238天未下单
             </td>
         </tr>
         
@@ -545,39 +705,19 @@
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="洪文革" 
-            data-client="王少祥">
-            <td onclick="showSalesChart('王少祥')" 
+            data-salesman="张赐锋" 
+            data-client="煜丰织造">
+            <td onclick="showSalesChart('煜丰织造')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                王少祥
+                煜丰织造
             </td>
             <td>潮汕办</td>
-            <td>洪文革</td>
-            <td>2023-08-02</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                614天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="王为峰">
-            <td onclick="showSalesChart('王为峰')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                王为峰
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-15</td>
+            <td>张赐锋</td>
+            <td>2025-03-27</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="negative">-4.6吨</td>
+            <td class="negative">-12.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
                 季度降幅100%
@@ -600,27 +740,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                128天未下单
+                129天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="源润织厂">
-            <td onclick="showSalesChart('源润织厂')" 
+            data-salesman="洪文革" 
+            data-client="王少祥">
+            <td onclick="showSalesChart('王少祥')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                源润织厂
+                王少祥
             </td>
             <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2023-11-04</td>
+            <td>洪文革</td>
+            <td>2023-08-02</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                520天未下单
+                615天未下单
             </td>
         </tr>
         
@@ -640,7 +780,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                377天未下单
+                378天未下单
             </td>
         </tr>
         
@@ -660,7 +800,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1264天未下单
+                1265天未下单
             </td>
         </tr>
         
@@ -680,7 +820,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                949天未下单
+                950天未下单
             </td>
         </tr>
         
@@ -720,7 +860,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                473天未下单
+                474天未下单
             </td>
         </tr>
         
@@ -744,43 +884,43 @@
             </td>
         </tr>
         
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="纺纶织造">
-            <td onclick="showSalesChart('纺纶织造')" 
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="滋兴纺织">
+            <td onclick="showSalesChart('滋兴纺织')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                纺纶织造
+                滋兴纺织
             </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2024-09-04</td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2025-02-19</td>
             <td>¥0</td>
-            <td>+0%</td>
+            <td>-100%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
+            <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
-                215天未下单
+                季度降幅100%
             </td>
         </tr>
         
-        <tr data-department="佛山办" 
-            data-salesman="洪文革" 
-            data-client="经纶(亿家布行）">
-            <td onclick="showSalesChart('经纶(亿家布行）')" 
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="温州旺姿彩针织有限公司">
+            <td onclick="showSalesChart('温州旺姿彩针织有限公司')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                经纶(亿家布行）
+                温州旺姿彩针织有限公司
             </td>
-            <td>佛山办</td>
-            <td>洪文革</td>
-            <td>2022-06-24</td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-01-12</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1018天未下单
+                452天未下单
             </td>
         </tr>
         
@@ -800,87 +940,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                276天未下单
+                277天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="A客（庄育平）">
-            <td onclick="showSalesChart('A客（庄育平）')" 
+            data-salesman="张赐锋" 
+            data-client="源润织厂">
+            <td onclick="showSalesChart('源润织厂')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                A客（庄育平）
+                源润织厂
             </td>
             <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-30</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-2.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="源发纺织">
-            <td onclick="showSalesChart('源发纺织')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                源发纺织
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2024-01-13</td>
+            <td>张赐锋</td>
+            <td>2023-11-04</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                450天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="汕头立华纺织">
-            <td onclick="showSalesChart('汕头立华纺织')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汕头立华纺织
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-02-26</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办代理" 
-            data-salesman="洪文革" 
-            data-client="汕头利标布业有限公司">
-            <td onclick="showSalesChart('汕头利标布业有限公司')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汕头利标布业有限公司
-            </td>
-            <td>潮汕办代理</td>
-            <td>洪文革</td>
-            <td>2022-02-26</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                1136天未下单
+                521天未下单
             </td>
         </tr>
         
@@ -940,7 +1020,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                235天未下单
+                236天未下单
             </td>
         </tr>
         
@@ -960,7 +1040,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1432天未下单
+                1433天未下单
             </td>
         </tr>
         
@@ -980,27 +1060,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                331天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="洪文革" 
-            data-client="汕头市潮南区金怡丰实业有限公司">
-            <td onclick="showSalesChart('汕头市潮南区金怡丰实业有限公司')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汕头市潮南区金怡丰实业有限公司
-            </td>
-            <td>潮汕办</td>
-            <td>洪文革</td>
-            <td>2025-03-28</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-75.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅100%
+                332天未下单
             </td>
         </tr>
         
@@ -1040,7 +1100,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                91天未下单
+                92天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="汕头立华纺织">
+            <td onclick="showSalesChart('汕头立华纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汕头立华纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-26</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅100%
             </td>
         </tr>
         
@@ -1060,27 +1140,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1372天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="本部棉纱部" 
-            data-salesman="陈少豪" 
-            data-client="温州旺姿彩针织有限公司">
-            <td onclick="showSalesChart('温州旺姿彩针织有限公司')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                温州旺姿彩针织有限公司
-            </td>
-            <td>本部棉纱部</td>
-            <td>陈少豪</td>
-            <td>2024-01-12</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                451天未下单
+                1373天未下单
             </td>
         </tr>
         
@@ -1100,7 +1160,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                741天未下单
+                742天未下单
             </td>
         </tr>
         
@@ -1120,7 +1180,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                172天未下单
+                173天未下单
             </td>
         </tr>
         
@@ -1140,7 +1200,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                728天未下单
+                729天未下单
             </td>
         </tr>
         
@@ -1160,7 +1220,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1194天未下单
+                1195天未下单
             </td>
         </tr>
         
@@ -1180,7 +1240,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                289天未下单
+                290天未下单
             </td>
         </tr>
         
@@ -1200,7 +1260,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                542天未下单
+                543天未下单
             </td>
         </tr>
         
@@ -1220,7 +1280,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                168天未下单
+                169天未下单
             </td>
         </tr>
         
@@ -1240,7 +1300,107 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                231天未下单
+                232天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="佛山办" 
+            data-salesman="洪文革" 
+            data-client="经纶(亿家布行）">
+            <td onclick="showSalesChart('经纶(亿家布行）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                经纶(亿家布行）
+            </td>
+            <td>佛山办</td>
+            <td>洪文革</td>
+            <td>2022-06-24</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1019天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="源发纺织">
+            <td onclick="showSalesChart('源发纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                源发纺织
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-01-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                451天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="纺纶织造">
+            <td onclick="showSalesChart('纺纶织造')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                纺纶织造
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-09-04</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                216天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="期现结合部" 
+            data-salesman="陈少豪" 
+            data-client="胜兴源">
+            <td onclick="showSalesChart('胜兴源')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                胜兴源
+            </td>
+            <td>期现结合部</td>
+            <td>陈少豪</td>
+            <td>2022-01-17</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1177天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="联盈布业">
+            <td onclick="showSalesChart('联盈布业')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                联盈布业
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-11-08</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                151天未下单
             </td>
         </tr>
         
@@ -1266,106 +1426,6 @@
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
-            data-client="联盈布业">
-            <td onclick="showSalesChart('联盈布业')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                联盈布业
-            </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2024-11-08</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                150天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="艺泰">
-            <td onclick="showSalesChart('艺泰')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                艺泰
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-01-10</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 长尾客户">长尾客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="育兴胜布业（郑龙生）">
-            <td onclick="showSalesChart('育兴胜布业（郑龙生）')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                育兴胜布业（郑龙生）
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2024-05-31</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                311天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="陈良强">
-            <td onclick="showSalesChart('陈良强')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                陈良强
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-11</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-1.1吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="陈东筹">
-            <td onclick="showSalesChart('陈东筹')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                陈东筹
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-25</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-27.5吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
             data-client="陈亮洲布业">
             <td onclick="showSalesChart('陈亮洲布业')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -1380,7 +1440,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                110天未下单
+                111天未下单
             </td>
         </tr>
         
@@ -1400,7 +1460,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                559天未下单
+                560天未下单
             </td>
         </tr>
         
@@ -1420,7 +1480,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                756天未下单
+                757天未下单
             </td>
         </tr>
         
@@ -1440,7 +1500,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                931天未下单
+                932天未下单
             </td>
         </tr>
         
@@ -1480,7 +1540,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                124天未下单
+                125天未下单
             </td>
         </tr>
         
@@ -1500,7 +1560,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                754天未下单
+                755天未下单
             </td>
         </tr>
         
@@ -1546,6 +1606,26 @@
         
         <tr data-department="潮汕办" 
             data-salesman="陈少豪" 
+            data-client="陈良强">
+            <td onclick="showSalesChart('陈良强')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                陈良强
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-11</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="negative">-1.1吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
             data-client="陈荣宣">
             <td onclick="showSalesChart('陈荣宣')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -1561,26 +1641,6 @@
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
                 季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="期现结合部" 
-            data-salesman="陈少豪" 
-            data-client="胜兴源">
-            <td onclick="showSalesChart('胜兴源')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                胜兴源
-            </td>
-            <td>期现结合部</td>
-            <td>陈少豪</td>
-            <td>2022-01-17</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                1176天未下单
             </td>
         </tr>
         
@@ -1600,7 +1660,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                349天未下单
+                350天未下单
             </td>
         </tr>
         
@@ -1620,7 +1680,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                213天未下单
+                214天未下单
             </td>
         </tr>
         
@@ -1640,7 +1700,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                324天未下单
+                325天未下单
             </td>
         </tr>
         
@@ -1660,7 +1720,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 新客户">新客户</td>
             <td class="warning">
-                178天未下单
+                179天未下单
             </td>
         </tr>
         
@@ -1700,7 +1760,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1220天未下单
+                1221天未下单
             </td>
         </tr>
         
@@ -1720,7 +1780,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                199天未下单
+                200天未下单
             </td>
         </tr>
         
@@ -1760,7 +1820,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                108天未下单
+                109天未下单
             </td>
         </tr>
         
@@ -1778,26 +1838,6 @@
             <td>-100%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="陈东立">
-            <td onclick="showSalesChart('陈东立')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                陈东立
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-27</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-10.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
                 季度降幅100%
@@ -1860,25 +1900,85 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                364天未下单
+                365天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="赖俊青">
+            <td onclick="showSalesChart('赖俊青')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                赖俊青
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2022-12-16</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                844天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="育兴胜布业（郑龙生）">
+            <td onclick="showSalesChart('育兴胜布业（郑龙生）')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                育兴胜布业（郑龙生）
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2024-05-31</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                312天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
             data-salesman="洪文革" 
-            data-client="汕头伟兴针织厂">
-            <td onclick="showSalesChart('汕头伟兴针织厂')" 
+            data-client="汕头兴发针织有限公司">
+            <td onclick="showSalesChart('汕头兴发针织有限公司')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汕头伟兴针织厂
+                汕头兴发针织有限公司
             </td>
             <td>潮汕办</td>
             <td>洪文革</td>
-            <td>2025-03-27</td>
+            <td>2024-11-13</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                146天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="艺泰">
+            <td onclick="showSalesChart('艺泰')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                艺泰
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-01-10</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="negative">-16.9吨</td>
-            <td class="client-class 头部客户">头部客户</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
                 季度降幅100%
             </td>
@@ -1940,7 +2040,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                774天未下单
+                775天未下单
             </td>
         </tr>
         
@@ -1960,7 +2060,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                461天未下单
+                462天未下单
             </td>
         </tr>
         
@@ -1980,7 +2080,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                902天未下单
+                903天未下单
             </td>
         </tr>
         
@@ -2004,26 +2104,6 @@
             </td>
         </tr>
         
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="赖俊青">
-            <td onclick="showSalesChart('赖俊青')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                赖俊青
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2022-12-16</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                843天未下单
-            </td>
-        </tr>
-        
         <tr data-department="本部棉纱部" 
             data-salesman="陈少豪" 
             data-client="赖锋宏">
@@ -2040,7 +2120,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                344天未下单
+                345天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="锦华贸易">
+            <td onclick="showSalesChart('锦华贸易')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                锦华贸易
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-02-26</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅100%
             </td>
         </tr>
         
@@ -2060,7 +2160,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                102天未下单
+                103天未下单
             </td>
         </tr>
         
@@ -2080,7 +2180,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                797天未下单
+                798天未下单
             </td>
         </tr>
         
@@ -2100,7 +2200,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                230天未下单
+                231天未下单
             </td>
         </tr>
         
@@ -2125,26 +2225,6 @@
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="洪文革" 
-            data-client="郑燃">
-            <td onclick="showSalesChart('郑燃')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                郑燃
-            </td>
-            <td>潮汕办</td>
-            <td>洪文革</td>
-            <td>2025-03-04</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-0.5吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
             data-salesman="陈少豪" 
             data-client="郭文勇">
             <td onclick="showSalesChart('郭文勇')" 
@@ -2160,7 +2240,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                185天未下单
+                186天未下单
             </td>
         </tr>
         
@@ -2200,27 +2280,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1448天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="佛山办" 
-            data-salesman="陈少豪" 
-            data-client="金佳鹏">
-            <td onclick="showSalesChart('金佳鹏')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                金佳鹏
-            </td>
-            <td>佛山办</td>
-            <td>陈少豪</td>
-            <td>2025-03-30</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-5.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
+                1449天未下单
             </td>
         </tr>
         
@@ -2240,7 +2300,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1440天未下单
+                1441天未下单
             </td>
         </tr>
         
@@ -2260,47 +2320,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                621天未下单
+                622天未下单
             </td>
         </tr>
         
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="锦华贸易">
-            <td onclick="showSalesChart('锦华贸易')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                锦华贸易
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-02-26</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
+        <tr data-department="潮汕办代理" 
             data-salesman="洪文革" 
-            data-client="汕头兴发针织有限公司">
-            <td onclick="showSalesChart('汕头兴发针织有限公司')" 
+            data-client="汕头利标布业有限公司">
+            <td onclick="showSalesChart('汕头利标布业有限公司')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汕头兴发针织有限公司
+                汕头利标布业有限公司
             </td>
-            <td>潮汕办</td>
+            <td>潮汕办代理</td>
             <td>洪文革</td>
-            <td>2024-11-13</td>
+            <td>2022-02-26</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
+            <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                145天未下单
+                1137天未下单
             </td>
         </tr>
         
@@ -2325,42 +2365,42 @@
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="汇腾纺织">
-            <td onclick="showSalesChart('汇腾纺织')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                汇腾纺织
-            </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2024-11-06</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 新客户">新客户</td>
-            <td class="warning">
-                152天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
             data-salesman="洪文革" 
-            data-client="嘉宝宏纺织">
-            <td onclick="showSalesChart('嘉宝宏纺织')" 
+            data-client="汕头伟兴针织厂">
+            <td onclick="showSalesChart('汕头伟兴针织厂')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                嘉宝宏纺织
+                汕头伟兴针织厂
             </td>
             <td>潮汕办</td>
             <td>洪文革</td>
-            <td>2023-08-14</td>
+            <td>2025-03-27</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="negative">-16.9吨</td>
+            <td class="client-class 头部客户">头部客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="本部棉纱部" 
+            data-salesman="陈少豪" 
+            data-client="卓圣荣">
+            <td onclick="showSalesChart('卓圣荣')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                卓圣荣
+            </td>
+            <td>本部棉纱部</td>
+            <td>陈少豪</td>
+            <td>2024-07-07</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                602天未下单
+                275天未下单
             </td>
         </tr>
         
@@ -2380,7 +2420,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1081天未下单
+                1082天未下单
             </td>
         </tr>
         
@@ -2400,7 +2440,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                759天未下单
+                760天未下单
             </td>
         </tr>
         
@@ -2420,7 +2460,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                922天未下单
+                923天未下单
             </td>
         </tr>
         
@@ -2440,7 +2480,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1021天未下单
+                1022天未下单
             </td>
         </tr>
         
@@ -2460,7 +2500,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                320天未下单
+                321天未下单
             </td>
         </tr>
         
@@ -2480,7 +2520,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                266天未下单
+                267天未下单
             </td>
         </tr>
         
@@ -2500,7 +2540,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                721天未下单
+                722天未下单
             </td>
         </tr>
         
@@ -2520,7 +2560,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                95天未下单 | 季度降幅100%
+                96天未下单 | 季度降幅100%
             </td>
         </tr>
         
@@ -2540,7 +2580,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                766天未下单
+                767天未下单
             </td>
         </tr>
         
@@ -2558,9 +2598,29 @@
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                180天未下单
+                181天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="洪文革" 
+            data-client="嘉宝宏纺织">
+            <td onclick="showSalesChart('嘉宝宏纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                嘉宝宏纺织
+            </td>
+            <td>潮汕办</td>
+            <td>洪文革</td>
+            <td>2023-08-14</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                603天未下单
             </td>
         </tr>
         
@@ -2585,26 +2645,6 @@
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="崔永功">
-            <td onclick="showSalesChart('崔永功')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                崔永功
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-21</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-1.5吨</td>
-            <td class="client-class 新客户">新客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
             data-salesman="洪文革" 
             data-client="大鑫纺织">
             <td onclick="showSalesChart('大鑫纺织')" 
@@ -2620,7 +2660,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                172天未下单
+                173天未下单
             </td>
         </tr>
         
@@ -2640,7 +2680,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                346天未下单
+                347天未下单
             </td>
         </tr>
         
@@ -2700,7 +2740,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                189天未下单
+                190天未下单
             </td>
         </tr>
         
@@ -2784,26 +2824,6 @@
             </td>
         </tr>
         
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="富兴纺织（陈明川）">
-            <td onclick="showSalesChart('富兴纺织（陈明川）')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                富兴纺织（陈明川）
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-02-09</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
         <tr data-department="本部棉纱部" 
             data-salesman="洪文革" 
             data-client="厦门市鑫锦和工贸有限公司">
@@ -2820,27 +2840,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                521天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="本部棉纱部" 
-            data-salesman="陈少豪" 
-            data-client="卓圣荣">
-            <td onclick="showSalesChart('卓圣荣')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                卓圣荣
-            </td>
-            <td>本部棉纱部</td>
-            <td>陈少豪</td>
-            <td>2024-07-07</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                274天未下单
+                522天未下单
             </td>
         </tr>
         
@@ -2860,7 +2860,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                198天未下单
+                199天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="尊马">
+            <td onclick="showSalesChart('尊马')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                尊马
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-04-29</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                710天未下单
             </td>
         </tr>
         
@@ -2920,7 +2940,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                902天未下单
+                903天未下单
             </td>
         </tr>
         
@@ -3020,7 +3040,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                437天未下单
+                438天未下单
             </td>
         </tr>
         
@@ -3060,7 +3080,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                331天未下单
+                332天未下单
             </td>
         </tr>
         
@@ -3080,7 +3100,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 新客户">新客户</td>
             <td class="warning">
-                101天未下单
+                102天未下单
             </td>
         </tr>
         
@@ -3140,7 +3160,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                295天未下单
+                296天未下单
             </td>
         </tr>
         
@@ -3240,7 +3260,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                724天未下单
+                725天未下单
             </td>
         </tr>
         
@@ -3260,7 +3280,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                249天未下单
+                250天未下单
             </td>
         </tr>
         
@@ -3280,7 +3300,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                855天未下单
+                856天未下单
             </td>
         </tr>
         
@@ -3300,64 +3320,24 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                354天未下单
+                355天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
             data-salesman="陈少豪" 
-            data-client="尊马">
-            <td onclick="showSalesChart('尊马')" 
+            data-client="富兴纺织（陈明川）">
+            <td onclick="showSalesChart('富兴纺织（陈明川）')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                尊马
+                富兴纺织（陈明川）
             </td>
             <td>潮汕办</td>
             <td>陈少豪</td>
-            <td>2023-04-29</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                709天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="常州旭荣针织印染有限公司">
-            <td onclick="showSalesChart('常州旭荣针织印染有限公司')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                常州旭荣针织印染有限公司
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2021-08-30</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                1316天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="正盛纺织">
-            <td onclick="showSalesChart('正盛纺织')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                正盛纺织
-            </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2025-03-01</td>
+            <td>2025-02-09</td>
             <td>¥0</td>
             <td>-100%</td>
             <td>0.0吨</td>
-            <td class="negative">-5.0吨</td>
+            <td class="positive">+0.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
                 季度降幅100%
@@ -3365,22 +3345,42 @@
         </tr>
         
         <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="普宁市而立织造制衣有限公司">
-            <td onclick="showSalesChart('普宁市而立织造制衣有限公司')" 
+            data-salesman="陈少豪" 
+            data-client="崔永功">
+            <td onclick="showSalesChart('崔永功')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                普宁市而立织造制衣有限公司
+                崔永功
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2025-03-21</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="negative">-1.5吨</td>
+            <td class="client-class 新客户">新客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
+            data-client="汇腾纺织">
+            <td onclick="showSalesChart('汇腾纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                汇腾纺织
             </td>
             <td>潮汕办</td>
             <td>张赐锋</td>
-            <td>2024-02-22</td>
+            <td>2024-11-06</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
+            <td class="client-class 新客户">新客户</td>
             <td class="warning">
-                410天未下单
+                153天未下单
             </td>
         </tr>
         
@@ -3400,27 +3400,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1351天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="明丰纱行">
-            <td onclick="showSalesChart('明丰纱行')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                明丰纱行
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2023-11-07</td>
-            <td>¥0</td>
-            <td>+0%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
-            <td class="warning">
-                517天未下单
+                1352天未下单
             </td>
         </tr>
         
@@ -3460,7 +3440,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1447天未下单
+                1448天未下单
             </td>
         </tr>
         
@@ -3500,7 +3480,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                333天未下单
+                334天未下单
             </td>
         </tr>
         
@@ -3520,7 +3500,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                225天未下单
+                226天未下单
             </td>
         </tr>
         
@@ -3560,7 +3540,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1421天未下单
+                1422天未下单
             </td>
         </tr>
         
@@ -3586,6 +3566,26 @@
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
+            data-client="普宁市而立织造制衣有限公司">
+            <td onclick="showSalesChart('普宁市而立织造制衣有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                普宁市而立织造制衣有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-02-22</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                411天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
             data-client="普宁市荣煌织造有限公司">
             <td onclick="showSalesChart('普宁市荣煌织造有限公司')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -3599,26 +3599,6 @@
             <td>0.0吨</td>
             <td class="negative">-46.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办代理" 
-            data-salesman="陈少豪" 
-            data-client="广东协骅制衣有限公司">
-            <td onclick="showSalesChart('广东协骅制衣有限公司')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                广东协骅制衣有限公司
-            </td>
-            <td>潮汕办代理</td>
-            <td>陈少豪</td>
-            <td>2025-02-22</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="positive">+0.0吨</td>
-            <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
                 季度降幅100%
             </td>
@@ -3640,7 +3620,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                628天未下单
+                629天未下单
             </td>
         </tr>
         
@@ -3660,7 +3640,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                205天未下单
+                206天未下单
             </td>
         </tr>
         
@@ -3680,7 +3660,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1289天未下单
+                1290天未下单
             </td>
         </tr>
         
@@ -3720,7 +3700,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                326天未下单
+                327天未下单
             </td>
         </tr>
         
@@ -3740,7 +3720,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
-                155天未下单
+                156天未下单
             </td>
         </tr>
         
@@ -3780,7 +3760,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
-                113天未下单
+                114天未下单
             </td>
         </tr>
         
@@ -3800,7 +3780,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 普通客户">普通客户</td>
             <td class="warning">
-                103天未下单
+                104天未下单
             </td>
         </tr>
         
@@ -3820,27 +3800,47 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                776天未下单
+                777天未下单
             </td>
         </tr>
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
-            data-client="旺佳布业">
-            <td onclick="showSalesChart('旺佳布业')" 
+            data-client="正盛纺织">
+            <td onclick="showSalesChart('正盛纺织')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                旺佳布业
+                正盛纺织
             </td>
             <td>潮汕办</td>
             <td>张赐锋</td>
-            <td>2024-11-07</td>
+            <td>2025-03-01</td>
+            <td>¥0</td>
+            <td>-100%</td>
+            <td>0.0吨</td>
+            <td class="negative">-5.0吨</td>
+            <td class="client-class 普通客户">普通客户</td>
+            <td class="warning">
+                季度降幅100%
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="明丰纱行">
+            <td onclick="showSalesChart('明丰纱行')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                明丰纱行
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2023-11-07</td>
             <td>¥0</td>
             <td>+0%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 长尾客户">长尾客户</td>
+            <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                151天未下单
+                518天未下单
             </td>
         </tr>
         
@@ -3860,7 +3860,27 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                459天未下单
+                460天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="陈少豪" 
+            data-client="常州旭荣针织印染有限公司">
+            <td onclick="showSalesChart('常州旭荣针织印染有限公司')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                常州旭荣针织印染有限公司
+            </td>
+            <td>潮汕办</td>
+            <td>陈少豪</td>
+            <td>2021-08-30</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                1317天未下单
             </td>
         </tr>
         
@@ -3884,23 +3904,23 @@
             </td>
         </tr>
         
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="旭锋纺织">
-            <td onclick="showSalesChart('旭锋纺织')" 
+        <tr data-department="潮汕办代理" 
+            data-salesman="陈少豪" 
+            data-client="广东协骅制衣有限公司">
+            <td onclick="showSalesChart('广东协骅制衣有限公司')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                旭锋纺织
+                广东协骅制衣有限公司
             </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2024-03-31</td>
+            <td>潮汕办代理</td>
+            <td>陈少豪</td>
+            <td>2025-02-22</td>
             <td>¥0</td>
-            <td>+0%</td>
+            <td>-100%</td>
             <td>0.0吨</td>
             <td class="positive">+0.0吨</td>
-            <td class="client-class 已经流失">已经流失</td>
+            <td class="client-class 头部客户">头部客户</td>
             <td class="warning">
-                372天未下单
+                季度降幅100%
             </td>
         </tr>
         
@@ -3920,27 +3940,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                637天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="张赐锋" 
-            data-client="广利布行">
-            <td onclick="showSalesChart('广利布行')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                广利布行
-            </td>
-            <td>潮汕办</td>
-            <td>张赐锋</td>
-            <td>2025-03-27</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-11.5吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
+                638天未下单
             </td>
         </tr>
         
@@ -3960,7 +3960,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1063天未下单
+                1064天未下单
             </td>
         </tr>
         
@@ -3980,7 +3980,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                199天未下单
+                200天未下单
             </td>
         </tr>
         
@@ -4000,7 +4000,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                221天未下单
+                222天未下单
             </td>
         </tr>
         
@@ -4040,7 +4040,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1025天未下单
+                1026天未下单
             </td>
         </tr>
         
@@ -4060,7 +4060,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                159天未下单
+                160天未下单
             </td>
         </tr>
         
@@ -4100,7 +4100,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                593天未下单
+                594天未下单
             </td>
         </tr>
         
@@ -4120,7 +4120,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                1426天未下单
+                1427天未下单
             </td>
         </tr>
         
@@ -4140,7 +4140,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 已经流失">已经流失</td>
             <td class="warning">
-                751天未下单
+                752天未下单
             </td>
         </tr>
         
@@ -4280,27 +4280,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 新客户">新客户</td>
             <td class="warning">
-                102天未下单
-            </td>
-        </tr>
-        
-        <tr data-department="潮汕办" 
-            data-salesman="陈少豪" 
-            data-client="新正">
-            <td onclick="showSalesChart('新正')" 
-                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
-                新正
-            </td>
-            <td>潮汕办</td>
-            <td>陈少豪</td>
-            <td>2025-03-07</td>
-            <td>¥0</td>
-            <td>-100%</td>
-            <td>0.0吨</td>
-            <td class="negative">-33.0吨</td>
-            <td class="client-class 普通客户">普通客户</td>
-            <td class="warning">
-                季度降幅100%
+                103天未下单
             </td>
         </tr>
         
@@ -4326,6 +4306,26 @@
         
         <tr data-department="潮汕办" 
             data-salesman="张赐锋" 
+            data-client="旭锋纺织">
+            <td onclick="showSalesChart('旭锋纺织')" 
+                style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
+                旭锋纺织
+            </td>
+            <td>潮汕办</td>
+            <td>张赐锋</td>
+            <td>2024-03-31</td>
+            <td>¥0</td>
+            <td>+0%</td>
+            <td>0.0吨</td>
+            <td class="positive">+0.0吨</td>
+            <td class="client-class 已经流失">已经流失</td>
+            <td class="warning">
+                373天未下单
+            </td>
+        </tr>
+        
+        <tr data-department="潮汕办" 
+            data-salesman="张赐锋" 
             data-client="鼎翔织造">
             <td onclick="showSalesChart('鼎翔织造')" 
                 style="cursor:pointer;color:#2c3e50;text-decoration:underline;">
@@ -4340,7 +4340,7 @@
             <td class="positive">+0.0吨</td>
             <td class="client-class 长尾客户">长尾客户</td>
             <td class="warning">
-                91天未下单 | 季度降幅100%
+                92天未下单 | 季度降幅100%
             </td>
         </tr>
         
@@ -4348,7 +4348,7 @@
     </table>
 
     <script>
-        const monthlyData = {"A客（庄育平）": {"2024-05": 44.825, "2024-06": 42.0, "2024-07": 14.0, "2024-08": 32.0, "2024-09": 0.0, "2024-10": 1.0, "2024-11": 13.0, "2024-12": 5.0, "2025-01": 32.0, "2025-02": 34.0, "2025-03": 2.0, "2025-04": 0.0}, "BL布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "万兴针织（陈泽佳）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 32.6592, "2024-11": 6.48648, "2024-12": 46.85688, "2025-01": 0.0, "2025-02": 10.02456, "2025-03": 0.0, "2025-04": 0.0}, "三金鑫布业": {"2024-05": 14.742, "2024-06": 60.5, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 11.202440000000001, "2025-04": 4.0}, "东明纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "东浩织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 9.072, "2025-01": 10.56888, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "东诚织造": {"2024-05": 58.968, "2024-06": 59.4216, "2024-07": 132.4323, "2024-08": 99.1116, "2024-09": 89.8128, "2024-10": 59.8752, "2024-11": 63.14112, "2024-12": 60.05664, "2025-01": 18.117539999999998, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "两英王新华": {"2024-05": 3.268, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.75656, "2024-10": 27.7516, "2024-11": 19.9584, "2024-12": 0.0, "2025-01": 38.1024, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "中宝": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 35.10864, "2024-08": 14.9688, "2024-09": 39.9168, "2024-10": 0.775, "2024-11": 30.087600000000002, "2024-12": 0.0, "2025-01": 12.40407, "2025-02": 0.0, "2025-03": 10.01228, "2025-04": 0.0}, "丰裕布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "于凤纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 7.0, "2025-02": 0.0, "2025-03": 4.275, "2025-04": 0.0}, "亨瑞": {"2024-05": 0.025, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "任洪涛": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "众鑫和": {"2024-05": 0.0, "2024-06": 29.9376, "2024-07": 22.9, "2024-08": 64.1844, "2024-09": 162.99632, "2024-10": 126.78744, "2024-11": 21.55, "2024-12": 24.176879999999997, "2025-01": 14.072, "2025-02": 10.0, "2025-03": 39.7701, "2025-04": 5.0}, "佰龙实业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 10.7, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "佳诚布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.1, "2025-03": 0.125, "2025-04": 0.0}, "俊平织造": {"2024-05": 0.0, "2024-06": 1.17936, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "俊龙纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 14.968800000000002, "2024-09": 9.9792, "2024-10": 21.0, "2024-11": 31.96052, "2024-12": 8.0, "2025-01": 4.0, "2025-02": 10.0, "2025-03": 12.25, "2025-04": 0.0}, "信诺": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.225, "2025-04": 0.0}, "信锋织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 1.04328, "2025-03": 0.0, "2025-04": 0.0}, "全胜纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.58136, "2024-12": 19.278, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 14.968800000000002, "2025-04": 0.0}, "兴业织造（江白弟）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "刘云航": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "刘太平": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "创尚品": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "创辉织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.9484, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 14.5204, "2025-03": 1.9958399999999998, "2025-04": 0.0}, "卓佳烽": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.86184, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "卓圣荣": {"2024-05": 0.0, "2024-06": 2.7216, "2024-07": 2.8, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门市鑫锦和工贸有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门海溢针纺织品有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门炜燚贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门爱华顿进出口贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门纳新贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "合成纺织（许培佳）": {"2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "启发纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 89.00577, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "启诚布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "吴汉如": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 14.10696, "2025-01": 5.8968, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "和兴（陈楚雄）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "哩哩美": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.025, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "嘉宝宏纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "大纺纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.0, "2025-04": 0.0}, "大鑫纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 11.9792, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "天栩布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "天辰纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 34.9272, "2024-11": 11.275739999999999, "2024-12": 9.9792, "2025-01": 9.9792, "2025-02": 9.9792, "2025-03": 0.0, "2025-04": 0.0}, "孙龙": {"2024-05": 6.31368, "2024-06": 5.5, "2024-07": 0.0, "2024-08": 22.02248, "2024-09": 24.0708, "2024-10": 12.89596, "2024-11": 8.30083, "2024-12": 5.35048, "2025-01": 1.5, "2025-02": 7.9, "2025-03": 4.225, "2025-04": 0.0}, "宏信达织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.4432, "2024-08": 20.049120000000002, "2024-09": 14.0616, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "宝乐赞": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 12.0204, "2025-04": 0.0}, "宝来贸易（黄宝昌）": {"2024-05": 3.1752, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 7.484399999999999, "2025-03": 5.67416, "2025-04": 0.0}, "宠得宝": {"2024-05": 22.70835, "2024-06": 18.3708, "2024-07": 0.0, "2024-08": 15.01416, "2024-09": 9.9792, "2024-10": 4.9896, "2024-11": 0.0, "2024-12": 5.80608, "2025-01": 9.9792, "2025-02": 5.80608, "2025-03": 4.98393, "2025-04": 0.0}, "宣龙纺织": {"2024-05": 33.0, "2024-06": 5.5, "2024-07": 2.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 22.65, "2024-11": 9.0, "2024-12": 38.0, "2025-01": 66.0, "2025-02": 0.0, "2025-03": 66.0, "2025-04": 0.0}, "富兴纺织（陈明川）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.0824, "2024-11": 0.0, "2024-12": 3.81024, "2025-01": 3.0, "2025-02": 2.0, "2025-03": 0.0, "2025-04": 0.0}, "尊马": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "崔永功": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.5, "2025-04": 0.0}, "常州旭荣针织印染有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "广东协骅制衣有限公司": {"2024-05": 23.06016, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 5.03496, "2024-11": 5.04288, "2024-12": 10.99966, "2025-01": 0.0, "2025-02": 5.0, "2025-03": 0.0, "2025-04": 0.0}, "广东纱纤亿纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "广利布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 20.09448, "2024-10": 10.8864, "2024-11": 0.0, "2024-12": 9.9792, "2025-01": 0.0, "2025-02": 11.793600000000001, "2025-03": 11.544120000000001, "2025-04": 0.0}, "广州市爱纱进出口贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄儒锋": {"2024-05": 0.0, "2024-06": 5.0, "2024-07": 15.0, "2024-08": 2.0, "2024-09": 16.55, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄凯斌": {"2024-05": 21.18312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 22.95216, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄楚鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 41.45, "2024-11": 10.125, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.025, "2025-04": 0.0}, "庄育雄": {"2024-05": 3.03912, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.025, "2024-12": 5.57928, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 2.0}, "康平祥": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "康雅纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 12.1648, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张俊强": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 1.6, "2024-08": 0.6350399999999999, "2024-09": 4.95, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.8250000000000001, "2025-01": 0.0, "2025-02": 6.0, "2025-03": 1.125, "2025-04": 0.0}, "张凤泉": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张小龙": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张楠": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张衍波": {"2024-05": 0.6, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.08864, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.85, "2025-04": 0.0}, "强兴一纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.0}, "彬盛织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 20.9792, "2024-11": 9.9146, "2024-12": 24.948, "2025-01": 0.0, "2025-02": 23.2254, "2025-03": 0.0, "2025-04": 0.0}, "恒源纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.0, "2025-04": 0.0}, "振炜布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.25, "2024-11": 9.175, "2024-12": 5.975, "2025-01": 3.9, "2025-02": 5.55, "2025-03": 1.875, "2025-04": 0.0}, "新东诚纺织": {"2024-05": 29.484, "2024-06": 29.9376, "2024-07": 63.776160000000004, "2024-08": 29.9376, "2024-09": 28.48608, "2024-10": 36.10656, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 16.325, "2025-03": 34.0, "2025-04": 0.0}, "新意": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 2.35, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "新正": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 30.34584, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0, "2025-04": 0.0}, "新鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 1.5, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.5, "2025-03": 0.0, "2025-04": 0.0}, "旭锋纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "时业(东欣)": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 14.9688, "2024-08": 0.0, "2024-09": 13.4, "2024-10": 16.634576, "2024-11": 24.634528, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 38.0, "2025-04": 0.0}, "时业针织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "旺佳布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.85144, "2024-10": 6.9854400000000005, "2024-11": 0.75, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "昆山崴鸿贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "明丰纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "星源织造": {"2024-05": 29.484, "2024-06": 54.837999999999994, "2024-07": 49.03416, "2024-08": 212.058, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 144.2448, "2025-01": 78.0192, "2025-02": 84.36959999999999, "2025-03": 126.48071999999999, "2025-04": 0.0}, "晋江青阳志胜服饰公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "晨晖布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 9.9792, "2024-08": 9.20808, "2024-09": 13.154399999999999, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.4948, "2025-04": 0.0}, "普宁兴盛布业有限公司": {"2024-05": 21.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁宝拉（陈坤海）": {"2024-05": 1.125, "2024-06": 15.05952, "2024-07": 6.9854400000000005, "2024-08": 6.07824, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市东鸿织造制衣有限公司": {"2024-05": 19.5048, "2024-06": 44.9064, "2024-07": 14.99715, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 29.121119999999998, "2025-03": 9.65, "2025-04": 0.0}, "普宁市和钜纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市祥泰纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 4.9896, "2024-08": 23.1336, "2024-09": 49.94136, "2024-10": 14.9688, "2024-11": 0.0, "2024-12": 32.8, "2025-01": 31.0, "2025-02": 6.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市而立织造制衣有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市荣煌织造有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 18.144, "2024-08": 5.0, "2024-09": 23.5872, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 19.9584, "2025-03": 46.0, "2025-04": 0.0}, "普宁恒大": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁长泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 1.007856, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁陈进飞": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李新典": {"2024-05": 5.99792, "2024-06": 0.5, "2024-07": 1.0, "2024-08": 1.05, "2024-09": 13.925, "2024-10": 5.0, "2024-11": 0.0, "2024-12": 5.8, "2025-01": 0.0, "2025-02": 2.0, "2025-03": 10.6, "2025-04": 0.0}, "李晓鹏": {"2024-05": 0.36288, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李贵荣": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李雪利": {"2024-05": 0.0, "2024-06": 2.268, "2024-07": 0.0, "2024-08": 4.8535200000000005, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 3.9916799999999997, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.0, "2025-04": 0.0}, "杜城织造": {"2024-05": 10.206, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 15.4224, "2024-09": 19.793599999999998, "2024-10": 23.144, "2024-11": 1.134, "2024-12": 0.72576, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "杨永鹏": {"2024-05": 0.0, "2024-06": 41.0, "2024-07": 149.0, "2024-08": 326.72368, "2024-09": 199.25, "2024-10": 21.9548, "2024-11": 10.82028, "2024-12": 112.625, "2025-01": 659.0, "2025-02": 818.175, "2025-03": 468.85, "2025-04": 38.5}, "枫林纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 10.27304, "2024-09": 21.9996, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 5.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "格凯（制衣）实业有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 36.288, "2024-08": 0.0, "2024-09": 29.9376, "2024-10": 29.9376, "2024-11": 0.225, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0, "2025-04": 0.0}, "正盛纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.9896, "2024-11": 10.25136, "2024-12": 24.948, "2025-01": 8.21016, "2025-02": 20.0, "2025-03": 5.0, "2025-04": 0.0}, "汇腾纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.9896, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头伟兴针织厂": {"2024-05": 0.0, "2024-06": 22.5, "2024-07": 11.58136, "2024-08": 24.01832, "2024-09": 2.0, "2024-10": 64.25, "2024-11": 0.0, "2024-12": 3.0911999999999997, "2025-01": 3.0, "2025-02": 0.0, "2025-03": 16.95, "2025-04": 0.0}, "汕头兴发针织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 63.897909999999996, "2024-08": 26.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头利标布业有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头吉祥布业有限公司": {"2024-05": 29.121119999999998, "2024-06": 10.0, "2024-07": 52.288, "2024-08": 0.9, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.0}, "汕头市丹洋纺织有限公司": {"2024-05": 58.12704, "2024-06": 66.0, "2024-07": 32.0, "2024-08": 0.0, "2024-09": 56.081599999999995, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 9.0, "2025-04": 0.0}, "汕头市建胜针织服装有限公司": {"2024-05": 2.7216, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 8.20728, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市德利兴纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市潮南区亚平纺织有限公司": {"2024-05": 4.17312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市潮南区金怡丰实业有限公司": {"2024-05": 0.0, "2024-06": 5.0, "2024-07": 0.0, "2024-08": 4.3, "2024-09": 10.6, "2024-10": 8.025, "2024-11": 10.0, "2024-12": 89.0, "2025-01": 47.325, "2025-02": 10.55, "2025-03": 75.0, "2025-04": 0.0}, "汕头市茂易盛贸易有公司": {"2024-05": 18.144, "2024-06": 11.078240000000001, "2024-07": 14.9688, "2024-08": 6.517519999999999, "2024-09": 0.925, "2024-10": 74.98409, "2024-11": 41.59512, "2024-12": 20.23992, "2025-01": 0.0, "2025-02": 4.17312, "2025-03": 42.525, "2025-04": 7.00812}, "汕头市裕盛纺织有限公司": {"2024-05": 43.484, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 33.8, "2024-09": 16.9, "2024-10": 10.425, "2024-11": 22.5, "2024-12": 42.0, "2025-01": 45.5, "2025-02": 0.0, "2025-03": 66.3, "2025-04": 0.0}, "汕头市西华纺织有限公司": {"2024-05": 82.82736, "2024-06": 78.4528, "2024-07": 81.0816, "2024-08": 9.66168, "2024-09": 246.46545, "2024-10": 73.71, "2024-11": 67.67712, "2024-12": 63.3288, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头立华纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.010999999999999, "2024-10": 34.97256, "2024-11": 47.208079999999995, "2024-12": 142.89885, "2025-01": 0.0, "2025-02": 1.1, "2025-03": 0.0, "2025-04": 0.0}, "汕头郑少彬": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头金纺纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头隆鑫纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.959679999999999, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "江迅": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "泉州旭泰纺织品有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "泽威纺织": {"2024-05": 0.0, "2024-06": 3.03912, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "洪兴": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "润义": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 5.0}, "深圳市苏吉思服饰有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.0, "2024-09": 0.0, "2024-10": 1.7, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "添盛织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "渝兴源": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.15}, "温州旺姿彩针织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源发纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源润织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源锐织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 29.484, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "滋兴纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 18.01728, "2024-09": 0.0, "2024-10": 3.0, "2024-11": 3.6230400000000005, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 6.486479999999999, "2025-03": 0.0, "2025-04": 0.0}, "滨诚纺织": {"2024-05": 0.0, "2024-06": 15.4224, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0844799999999997, "2024-10": 5.39784, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.35, "2025-04": 0.0}, "潘百收": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "潮丰布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "炜灿": {"2024-05": 10.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "烨达纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.536, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "焕佳织造": {"2024-05": 77.92281, "2024-06": 91.80864, "2024-07": 156.58272, "2024-08": 50.482, "2024-09": 341.76256, "2024-10": 162.48760000000001, "2024-11": 73.87519999999999, "2024-12": 100.14533, "2025-01": 119.7504, "2025-02": 84.36959999999999, "2025-03": 0.0, "2025-04": 0.0}, "煜丰织造": {"2024-05": 25.174799999999998, "2024-06": 5.0, "2024-07": 14.9688, "2024-08": 20.0, "2024-09": 8.0, "2024-10": 19.9688, "2024-11": 15.6, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 15.125, "2025-03": 12.01852, "2025-04": 0.0}, "王为峰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 9.9792, "2024-10": 5.05, "2024-11": 0.0, "2024-12": 2.0, "2025-01": 1.5, "2025-02": 0.0, "2025-03": 4.6, "2025-04": 0.0}, "王伟杰": {"2024-05": 9.9792, "2024-06": 19.9584, "2024-07": 30.83346, "2024-08": 7.983360000000001, "2024-09": 4.34133, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "王少祥": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "百得布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "百荣布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "益电（罗楚标）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "盛扬纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 2.0, "2024-09": 0.0, "2024-10": 6.25, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 5.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "粤彩布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "粤得利织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 3.725, "2025-03": 0.6, "2025-04": 0.0}, "纺纶织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 6.9854400000000005, "2024-08": 16.03912, "2024-09": 12.81232, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "经纶(亿家布行）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "联盈布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 10.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 33.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "肖柏林": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.007856, "2024-12": 8.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 17.025, "2025-04": 0.0}, "育兴胜布业（郑龙生）": {"2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "胜兴源": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "艺泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 15.625, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "范文光": {"2024-05": 0.0, "2024-06": 2.0412, "2024-07": 0.0, "2024-08": 23.97088, "2024-09": 16.5564, "2024-10": 3.68912, "2024-11": 22.308120000000002, "2024-12": 18.22352, "2025-01": 71.26176000000001, "2025-02": 4.0, "2025-03": 5.82292, "2025-04": 0.0}, "荣达欣织造": {"2024-05": 29.0512, "2024-06": 92.22224, "2024-07": 41.3192, "2024-08": 97.99464, "2024-09": 80.10576, "2024-10": 79.66544, "2024-11": 63.0, "2024-12": 46.7208, "2025-01": 19.9584, "2025-02": 46.90224, "2025-03": 74.25301999999999, "2025-04": 0.0}, "蒋昌龙": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "裕联纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "诗维雅": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "象牙盾": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.9, "2024-08": 20.05, "2024-09": 87.34792, "2024-10": 33.4, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 3.425, "2025-04": 0.0}, "赖俊青": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赖锋宏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赵华生": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 33.0, "2024-10": 27.1, "2024-11": 35.9, "2024-12": 32.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赵廷波": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "连胜布业": {"2024-05": 0.0, "2024-06": 8.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "郑晓鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 9.55, "2024-09": 3.03552, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 5.3, "2025-01": 44.0, "2025-02": 114.225, "2025-03": 32.5, "2025-04": 0.0}, "郑燃": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.5, "2024-11": 27.1512, "2024-12": 26.208599999999997, "2025-01": 9.9896, "2025-02": 2.268, "2025-03": 0.5, "2025-04": 0.0}, "郭文勇": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 2.268, "2024-10": 9.072, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "郭楚波织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 19.9584, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 18.144, "2025-02": 32.45, "2025-03": 0.0, "2025-04": 0.0}, "金佳艺纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "金佳鹏": {"2024-05": 0.0, "2024-06": 7.25, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.2576, "2024-10": 17.2368, "2024-11": 6.3504, "2024-12": 2.0, "2025-01": 7.55, "2025-02": 33.0, "2025-03": 5.0, "2025-04": 0.0}, "金泉纺织（杨金泉）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鑫源布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "钟楚溪": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 10.0}, "锦华贸易": {"2024-05": 2.5401599999999998, "2024-06": 12.7008, "2024-07": 12.85, "2024-08": 8.79984, "2024-09": 16.072, "2024-10": 26.17896, "2024-11": 46.44864, "2024-12": 5.268, "2025-01": 0.0, "2025-02": 3.51776, "2025-03": 0.0, "2025-04": 0.0}, "锦虹织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "锦隆织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 9.9792, "2025-03": 50.9166, "2025-04": 0.0}, "闽兴隆纱线行(施友恒)": {"2024-05": 0.0, "2024-06": 32.9376, "2024-07": 0.0, "2024-08": 5.4432, "2024-09": 0.9979199999999999, "2024-10": 1.22472, "2024-11": 34.20144, "2024-12": 0.0, "2025-01": 11.7936, "2025-02": 29.937599999999996, "2025-03": 31.9788, "2025-04": 0.0}, "陈东立": {"2024-05": 1.0, "2024-06": 17.25, "2024-07": 0.0, "2024-08": 40.001850000000005, "2024-09": 17.73576, "2024-10": 21.86664, "2024-11": 7.75656, "2024-12": 19.66972, "2025-01": 15.24728, "2025-02": 26.6, "2025-03": 10.0, "2025-04": 0.0}, "陈东筹": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 2.0, "2024-08": 37.35276, "2024-09": 10.02456, "2024-10": 0.0, "2024-11": 0.18144, "2024-12": 106.693, "2025-01": 12.6412, "2025-02": 24.16875, "2025-03": 27.465919999999997, "2025-04": 0.0}, "陈亮洲布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 12.247200000000001, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈名丰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈政钢": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈新达": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 1.975}, "陈桂洲": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈楚鑫": {"2024-05": 3.0, "2024-06": 7.0, "2024-07": 7.0, "2024-08": 5.5, "2024-09": 0.0, "2024-10": 5.98752, "2024-11": 3.9916799999999997, "2024-12": 25.2728, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 4.0, "2025-04": 0.0}, "陈泽宏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.0, "2024-11": 3.4020000000000006, "2024-12": 6.07824, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈泽锐": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈炎生（宇盛纺织）": {"2024-05": 0.0, "2024-06": 1.0, "2024-07": 0.0, "2024-08": 12.225, "2024-09": 10.275, "2024-10": 3.075, "2024-11": 13.29048, "2024-12": 20.97684, "2025-01": 12.0824, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈特扬织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 5.0, "2024-11": 9.979199999999999, "2024-12": 4.9896, "2025-01": 5.76072, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈良强": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.0, "2024-12": 10.875, "2025-01": 4.0, "2025-02": 42.7, "2025-03": 1.1, "2025-04": 0.0}, "陈荣宣": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.725, "2024-12": 2.3, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 10.0, "2025-04": 0.0}, "马泽帆": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "高明": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鸿兴纱行（陈宏亮）": {"2024-05": 2.08656, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鸿盛": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 26.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鹏盛泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.5, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.7, "2025-04": 0.0}, "黄国泽": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "黄旭健": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "黄晓燕": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 10.3, "2025-03": 0.0, "2025-04": 0.0}, "黄育光（龙正）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 41.504400000000004, "2024-09": 33.43032, "2024-10": 0.0, "2024-11": 16.05744, "2024-12": 4.44528, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鼎和纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 2.0, "2025-01": 1.9968, "2025-02": 4.012512, "2025-03": 0.0, "2025-04": 0.0}, "鼎翔织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 4.9896, "2025-01": 9.9792, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}};
+        const monthlyData = {"A客（庄育平）": {"2024-05": 44.825, "2024-06": 42.0, "2024-07": 14.0, "2024-08": 32.0, "2024-09": 0.0, "2024-10": 1.0, "2024-11": 13.0, "2024-12": 5.0, "2025-01": 32.0, "2025-02": 34.0, "2025-03": 2.0, "2025-04": 0.0}, "BL布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "万兴针织（陈泽佳）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 32.6592, "2024-11": 6.48648, "2024-12": 46.85688, "2025-01": 0.0, "2025-02": 10.02456, "2025-03": 0.0, "2025-04": 0.0}, "三金鑫布业": {"2024-05": 14.742, "2024-06": 60.5, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 11.202440000000001, "2025-04": 4.0}, "东明纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "东浩织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 9.072, "2025-01": 10.56888, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "东诚织造": {"2024-05": 58.968, "2024-06": 59.4216, "2024-07": 132.4323, "2024-08": 99.1116, "2024-09": 89.8128, "2024-10": 59.8752, "2024-11": 63.14112, "2024-12": 60.05664, "2025-01": 18.117539999999998, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "两英王新华": {"2024-05": 3.268, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.75656, "2024-10": 27.7516, "2024-11": 19.9584, "2024-12": 0.0, "2025-01": 38.1024, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "中宝": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 35.10864, "2024-08": 14.9688, "2024-09": 39.9168, "2024-10": 0.775, "2024-11": 30.087600000000002, "2024-12": 0.0, "2025-01": 12.40407, "2025-02": 0.0, "2025-03": 10.01228, "2025-04": 0.0}, "丰裕布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "于凤纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 7.0, "2025-02": 0.0, "2025-03": 4.275, "2025-04": 0.0}, "亨瑞": {"2024-05": 0.025, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "任洪涛": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "众鑫和": {"2024-05": 0.0, "2024-06": 29.9376, "2024-07": 22.9, "2024-08": 64.1844, "2024-09": 162.99632, "2024-10": 126.78744, "2024-11": 21.55, "2024-12": 24.176879999999997, "2025-01": 14.072, "2025-02": 10.0, "2025-03": 39.7701, "2025-04": 5.0}, "佰龙实业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 10.7, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "佳诚布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.1, "2025-03": 0.125, "2025-04": 0.0}, "俊平织造": {"2024-05": 0.0, "2024-06": 1.17936, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "俊龙纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 14.968800000000002, "2024-09": 9.9792, "2024-10": 21.0, "2024-11": 31.96052, "2024-12": 8.0, "2025-01": 4.0, "2025-02": 10.0, "2025-03": 12.25, "2025-04": 0.0}, "信诺": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.225, "2025-04": 0.0}, "信锋织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 1.04328, "2025-03": 0.0, "2025-04": 0.0}, "全胜纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.58136, "2024-12": 19.278, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 14.968800000000002, "2025-04": 0.0}, "兴业织造（江白弟）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "刘云航": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "刘太平": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "创尚品": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "创辉织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.9484, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 14.5204, "2025-03": 1.9958399999999998, "2025-04": 0.0}, "卓佳烽": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.86184, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "卓圣荣": {"2024-05": 0.0, "2024-06": 2.7216, "2024-07": 2.8, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门市鑫锦和工贸有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门海溢针纺织品有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门炜燚贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门爱华顿进出口贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "厦门纳新贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "合成纺织（许培佳）": {"2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "启发纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 89.00577, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "启诚布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "吴汉如": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 14.10696, "2025-01": 5.8968, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "和兴（陈楚雄）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "哩哩美": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.025, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "嘉宝宏纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "大纺纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.0, "2025-04": 0.0}, "大鑫纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 11.9792, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "天栩布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "天辰纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.9979199999999999, "2024-09": 0.0, "2024-10": 34.9272, "2024-11": 11.275739999999999, "2024-12": 9.9792, "2025-01": 9.9792, "2025-02": 9.9792, "2025-03": 0.0, "2025-04": 0.0}, "孙龙": {"2024-05": 6.31368, "2024-06": 5.5, "2024-07": 0.0, "2024-08": 22.02248, "2024-09": 24.0708, "2024-10": 12.89596, "2024-11": 8.30083, "2024-12": 5.35048, "2025-01": 1.5, "2025-02": 7.9, "2025-03": 4.225, "2025-04": 0.0}, "宏信达织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.4432, "2024-08": 20.049120000000002, "2024-09": 14.0616, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "宝乐赞": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 12.0204, "2025-04": 0.0}, "宝来贸易（黄宝昌）": {"2024-05": 3.1752, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 7.484399999999999, "2025-03": 5.67416, "2025-04": 0.0}, "宠得宝": {"2024-05": 22.70835, "2024-06": 18.3708, "2024-07": 0.0, "2024-08": 15.01416, "2024-09": 9.9792, "2024-10": 4.9896, "2024-11": 0.0, "2024-12": 5.80608, "2025-01": 9.9792, "2025-02": 5.80608, "2025-03": 4.98393, "2025-04": 0.0}, "宣龙纺织": {"2024-05": 33.0, "2024-06": 5.5, "2024-07": 2.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 22.65, "2024-11": 9.0, "2024-12": 38.0, "2025-01": 66.0, "2025-02": 0.0, "2025-03": 66.0, "2025-04": 0.0}, "富兴纺织（陈明川）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.0824, "2024-11": 0.0, "2024-12": 3.81024, "2025-01": 3.0, "2025-02": 2.0, "2025-03": 0.0, "2025-04": 0.0}, "尊马": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "崔永功": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.5, "2025-04": 0.0}, "常州旭荣针织印染有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "广东协骅制衣有限公司": {"2024-05": 23.06016, "2024-06": 0.0, "2024-07": 5.0, "2024-08": 5.0, "2024-09": 0.0, "2024-10": 5.03496, "2024-11": 5.04288, "2024-12": 10.99966, "2025-01": 0.0, "2025-02": 5.0, "2025-03": 0.0, "2025-04": 0.0}, "广东纱纤亿纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "广利布行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 20.09448, "2024-10": 10.8864, "2024-11": 0.0, "2024-12": 9.9792, "2025-01": 0.0, "2025-02": 11.793600000000001, "2025-03": 11.544120000000001, "2025-04": 3.0164400000000002}, "广州市爱纱进出口贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄儒锋": {"2024-05": 0.0, "2024-06": 5.0, "2024-07": 15.0, "2024-08": 2.0, "2024-09": 16.55, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄凯斌": {"2024-05": 21.18312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 22.95216, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "庄楚鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 41.45, "2024-11": 10.125, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.025, "2025-04": 0.0}, "庄育雄": {"2024-05": 3.03912, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.025, "2024-12": 5.57928, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 2.0}, "康平祥": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "康雅纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 12.1648, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张俊强": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 1.6, "2024-08": 0.6350399999999999, "2024-09": 4.95, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.8250000000000001, "2025-01": 0.0, "2025-02": 6.0, "2025-03": 1.125, "2025-04": 0.0}, "张凤泉": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张小龙": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张楠": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "张衍波": {"2024-05": 0.6, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 1.08864, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.85, "2025-04": 0.0}, "强兴一纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.0}, "彬盛织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 20.9792, "2024-11": 9.9146, "2024-12": 24.948, "2025-01": 0.0, "2025-02": 23.2254, "2025-03": 0.0, "2025-04": 0.0}, "恒源纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 1.0, "2025-04": 0.0}, "振炜布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.25, "2024-11": 9.175, "2024-12": 5.975, "2025-01": 3.9, "2025-02": 5.55, "2025-03": 1.875, "2025-04": 0.0}, "新东诚纺织": {"2024-05": 29.484, "2024-06": 29.9376, "2024-07": 63.776160000000004, "2024-08": 29.9376, "2024-09": 28.48608, "2024-10": 36.10656, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 16.325, "2025-03": 34.0, "2025-04": 0.0}, "新意": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 2.35, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "新正": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 30.34584, "2024-12": 10.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0, "2025-04": 1.2}, "新鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 1.5, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.5, "2025-03": 0.0, "2025-04": 0.0}, "旭锋纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "时业(东欣)": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 14.9688, "2024-08": 0.0, "2024-09": 13.4, "2024-10": 16.634576, "2024-11": 24.634528, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 38.0, "2025-04": 0.0}, "时业针织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "旺佳布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.85144, "2024-10": 6.9854400000000005, "2024-11": 0.75, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.2}, "昆山崴鸿贸易有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "明丰纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "星源织造": {"2024-05": 29.484, "2024-06": 54.837999999999994, "2024-07": 49.03416, "2024-08": 212.058, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 144.2448, "2025-01": 78.0192, "2025-02": 84.36959999999999, "2025-03": 126.48071999999999, "2025-04": 0.0}, "晋江青阳志胜服饰公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "晨晖布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 9.9792, "2024-08": 9.20808, "2024-09": 13.154399999999999, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.4948, "2025-04": 0.0}, "普宁兴盛布业有限公司": {"2024-05": 21.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁宝拉（陈坤海）": {"2024-05": 1.125, "2024-06": 15.05952, "2024-07": 6.9854400000000005, "2024-08": 6.07824, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市东鸿织造制衣有限公司": {"2024-05": 19.5048, "2024-06": 44.9064, "2024-07": 14.99715, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 29.9376, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 29.121119999999998, "2025-03": 9.65, "2025-04": 0.0}, "普宁市和钜纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市祥泰纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 4.9896, "2024-08": 23.1336, "2024-09": 49.94136, "2024-10": 14.9688, "2024-11": 0.0, "2024-12": 32.8, "2025-01": 31.0, "2025-02": 6.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市而立织造制衣有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁市荣煌织造有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 18.144, "2024-08": 5.0, "2024-09": 23.5872, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 19.9584, "2025-03": 46.0, "2025-04": 0.0}, "普宁恒大": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁长泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 1.007856, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "普宁陈进飞": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李新典": {"2024-05": 5.99792, "2024-06": 0.5, "2024-07": 1.0, "2024-08": 1.05, "2024-09": 13.925, "2024-10": 5.0, "2024-11": 0.0, "2024-12": 5.8, "2025-01": 0.0, "2025-02": 2.0, "2025-03": 10.6, "2025-04": 0.0}, "李晓鹏": {"2024-05": 0.36288, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李贵荣": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "李雪利": {"2024-05": 0.0, "2024-06": 2.268, "2024-07": 0.0, "2024-08": 4.8535200000000005, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 3.9916799999999997, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.0, "2025-04": 0.0}, "杜城织造": {"2024-05": 10.206, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 15.4224, "2024-09": 19.793599999999998, "2024-10": 23.144, "2024-11": 1.134, "2024-12": 0.72576, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "杨永鹏": {"2024-05": 0.0, "2024-06": 41.0, "2024-07": 149.0, "2024-08": 326.72368, "2024-09": 199.25, "2024-10": 21.9548, "2024-11": 10.82028, "2024-12": 112.625, "2025-01": 659.0, "2025-02": 818.175, "2025-03": 468.85, "2025-04": 39.5206}, "枫林纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 10.27304, "2024-09": 21.9996, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 5.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "格凯（制衣）实业有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 36.288, "2024-08": 0.0, "2024-09": 29.9376, "2024-10": 29.9376, "2024-11": 0.225, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 33.0, "2025-04": 0.0}, "正盛纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 4.9896, "2024-11": 10.25136, "2024-12": 24.948, "2025-01": 8.21016, "2025-02": 20.0, "2025-03": 5.0, "2025-04": 0.0}, "汇腾纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 4.9896, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头伟兴针织厂": {"2024-05": 0.0, "2024-06": 22.5, "2024-07": 11.58136, "2024-08": 24.01832, "2024-09": 2.0, "2024-10": 64.25, "2024-11": 0.0, "2024-12": 3.0911999999999997, "2025-01": 3.0, "2025-02": 0.0, "2025-03": 16.95, "2025-04": 0.0}, "汕头兴发针织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 63.897909999999996, "2024-08": 26.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头利标布业有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头吉祥布业有限公司": {"2024-05": 29.121119999999998, "2024-06": 10.0, "2024-07": 52.288, "2024-08": 0.9, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.0}, "汕头市丹洋纺织有限公司": {"2024-05": 58.12704, "2024-06": 66.0, "2024-07": 32.0, "2024-08": 0.0, "2024-09": 56.081599999999995, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 9.0, "2025-04": 0.0}, "汕头市建胜针织服装有限公司": {"2024-05": 2.7216, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 8.20728, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市德利兴纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市潮南区亚平纺织有限公司": {"2024-05": 4.17312, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头市潮南区金怡丰实业有限公司": {"2024-05": 0.0, "2024-06": 5.0, "2024-07": 0.0, "2024-08": 4.3, "2024-09": 10.6, "2024-10": 8.025, "2024-11": 10.0, "2024-12": 89.0, "2025-01": 47.325, "2025-02": 10.55, "2025-03": 75.0, "2025-04": 9.0206}, "汕头市茂易盛贸易有公司": {"2024-05": 18.144, "2024-06": 11.078240000000001, "2024-07": 14.9688, "2024-08": 6.517519999999999, "2024-09": 0.925, "2024-10": 74.98409, "2024-11": 41.59512, "2024-12": 20.23992, "2025-01": 0.0, "2025-02": 4.17312, "2025-03": 42.525, "2025-04": 7.00812}, "汕头市裕盛纺织有限公司": {"2024-05": 43.484, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 33.8, "2024-09": 16.9, "2024-10": 10.425, "2024-11": 22.5, "2024-12": 42.0, "2025-01": 45.5, "2025-02": 0.0, "2025-03": 66.3, "2025-04": 0.0}, "汕头市西华纺织有限公司": {"2024-05": 82.82736, "2024-06": 78.4528, "2024-07": 81.0816, "2024-08": 9.66168, "2024-09": 246.46545, "2024-10": 73.71, "2024-11": 67.67712, "2024-12": 63.3288, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头立华纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 5.010999999999999, "2024-10": 34.97256, "2024-11": 47.208079999999995, "2024-12": 142.89885, "2025-01": 0.0, "2025-02": 1.1, "2025-03": 0.0, "2025-04": 0.0}, "汕头郑少彬": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头金纺纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "汕头隆鑫纺织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.959679999999999, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "江迅": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "泉州旭泰纺织品有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "泽威纺织": {"2024-05": 0.0, "2024-06": 3.03912, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "洪兴": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "润义": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 5.0}, "深圳市苏吉思服饰有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.0, "2024-09": 0.0, "2024-10": 1.7, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "添盛织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "渝兴源": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 5.0, "2025-04": 0.15}, "温州旺姿彩针织有限公司": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源发纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源润织厂": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "源锐织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 29.484, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "滋兴纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 18.01728, "2024-09": 0.0, "2024-10": 3.0, "2024-11": 3.6230400000000005, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 6.486479999999999, "2025-03": 0.0, "2025-04": 0.0}, "滨诚纺织": {"2024-05": 0.0, "2024-06": 15.4224, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0844799999999997, "2024-10": 5.39784, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 2.35, "2025-04": 0.0}, "潘百收": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "潮丰布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "炜灿": {"2024-05": 10.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "烨达纱行": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 4.536, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "焕佳织造": {"2024-05": 77.92281, "2024-06": 91.80864, "2024-07": 156.58272, "2024-08": 50.482, "2024-09": 341.76256, "2024-10": 162.48760000000001, "2024-11": 73.87519999999999, "2024-12": 100.14533, "2025-01": 119.7504, "2025-02": 84.36959999999999, "2025-03": 0.0, "2025-04": 0.0}, "煜丰织造": {"2024-05": 25.174799999999998, "2024-06": 5.0, "2024-07": 14.9688, "2024-08": 20.0, "2024-09": 8.0, "2024-10": 19.9688, "2024-11": 15.6, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 15.125, "2025-03": 12.01852, "2025-04": 0.0}, "王为峰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 9.9792, "2024-10": 5.05, "2024-11": 0.0, "2024-12": 2.0, "2025-01": 1.5, "2025-02": 0.0, "2025-03": 4.6, "2025-04": 0.0}, "王伟杰": {"2024-05": 9.9792, "2024-06": 19.9584, "2024-07": 30.83346, "2024-08": 7.983360000000001, "2024-09": 4.34133, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "王少祥": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "百得布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "百荣布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "益电（罗楚标）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "盛扬纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 2.0, "2024-09": 0.0, "2024-10": 6.25, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 5.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "粤彩布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "粤得利织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 3.725, "2025-03": 0.6, "2025-04": 0.0}, "纺纶织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 6.9854400000000005, "2024-08": 16.03912, "2024-09": 12.81232, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "经纶(亿家布行）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "联盈布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 10.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 33.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "肖柏林": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.007856, "2024-12": 8.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 17.025, "2025-04": 0.0}, "育兴胜布业（郑龙生）": {"2024-05": 9.9792, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "胜兴源": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "艺泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 15.625, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "范文光": {"2024-05": 0.0, "2024-06": 2.0412, "2024-07": 0.0, "2024-08": 23.97088, "2024-09": 16.5564, "2024-10": 3.68912, "2024-11": 22.308120000000002, "2024-12": 18.22352, "2025-01": 71.26176000000001, "2025-02": 4.0, "2025-03": 5.82292, "2025-04": 0.0}, "荣达欣织造": {"2024-05": 29.0512, "2024-06": 92.22224, "2024-07": 41.3192, "2024-08": 97.99464, "2024-09": 80.10576, "2024-10": 79.66544, "2024-11": 63.0, "2024-12": 46.7208, "2025-01": 19.9584, "2025-02": 46.90224, "2025-03": 74.25301999999999, "2025-04": 0.0}, "蒋昌龙": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "裕联纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "诗维雅": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "象牙盾": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 5.9, "2024-08": 20.05, "2024-09": 87.34792, "2024-10": 33.4, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 3.425, "2025-04": 0.0}, "赖俊青": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赖锋宏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赵华生": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 33.0, "2024-10": 27.1, "2024-11": 35.9, "2024-12": 32.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "赵廷波": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "连胜布业": {"2024-05": 0.0, "2024-06": 8.0, "2024-07": 0.0, "2024-08": 3.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "郑晓鹏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 9.55, "2024-09": 3.03552, "2024-10": 0.0, "2024-11": 10.0, "2024-12": 5.3, "2025-01": 44.0, "2025-02": 114.225, "2025-03": 32.5, "2025-04": 0.0}, "郑燃": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 8.5, "2024-11": 27.1512, "2024-12": 26.208599999999997, "2025-01": 9.9896, "2025-02": 2.268, "2025-03": 0.5, "2025-04": 1.134}, "郭文勇": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 2.268, "2024-10": 9.072, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "郭楚波织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 19.9584, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 18.144, "2025-02": 32.45, "2025-03": 0.0, "2025-04": 0.0}, "金佳艺纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "金佳鹏": {"2024-05": 0.0, "2024-06": 7.25, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 7.2576, "2024-10": 17.2368, "2024-11": 6.3504, "2024-12": 2.0, "2025-01": 7.55, "2025-02": 33.0, "2025-03": 5.0, "2025-04": 2.0}, "金泉纺织（杨金泉）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鑫源布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "钟楚溪": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 31.25}, "锦华贸易": {"2024-05": 2.5401599999999998, "2024-06": 12.7008, "2024-07": 12.85, "2024-08": 8.79984, "2024-09": 16.072, "2024-10": 26.17896, "2024-11": 46.44864, "2024-12": 5.268, "2025-01": 0.0, "2025-02": 3.51776, "2025-03": 0.0, "2025-04": 0.0}, "锦虹织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "锦隆织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 9.9792, "2025-03": 50.9166, "2025-04": 0.0}, "闽兴隆纱线行(施友恒)": {"2024-05": 0.0, "2024-06": 32.9376, "2024-07": 0.0, "2024-08": 5.4432, "2024-09": 0.9979199999999999, "2024-10": 1.22472, "2024-11": 34.20144, "2024-12": 0.0, "2025-01": 11.7936, "2025-02": 29.937599999999996, "2025-03": 31.9788, "2025-04": 0.0}, "陈东立": {"2024-05": 1.0, "2024-06": 17.25, "2024-07": 0.0, "2024-08": 40.001850000000005, "2024-09": 17.73576, "2024-10": 21.86664, "2024-11": 7.75656, "2024-12": 19.66972, "2025-01": 15.24728, "2025-02": 26.6, "2025-03": 10.0, "2025-04": 9.60196}, "陈东筹": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 2.0, "2024-08": 37.35276, "2024-09": 10.02456, "2024-10": 0.0, "2024-11": 0.18144, "2024-12": 106.693, "2025-01": 12.6412, "2025-02": 24.16875, "2025-03": 27.465919999999997, "2025-04": 5.12568}, "陈亮洲布业": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 3.0, "2024-12": 12.247200000000001, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈名丰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈政钢": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈新达": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 1.975}, "陈桂洲": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈楚鑫": {"2024-05": 3.0, "2024-06": 7.0, "2024-07": 7.0, "2024-08": 5.5, "2024-09": 0.0, "2024-10": 5.98752, "2024-11": 3.9916799999999997, "2024-12": 25.2728, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 4.0, "2025-04": 0.0}, "陈泽宏": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 5.0, "2024-11": 3.4020000000000006, "2024-12": 6.07824, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈泽锐": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈炎生（宇盛纺织）": {"2024-05": 0.0, "2024-06": 1.0, "2024-07": 0.0, "2024-08": 12.225, "2024-09": 10.275, "2024-10": 3.075, "2024-11": 13.29048, "2024-12": 20.97684, "2025-01": 12.0824, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈特扬织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 5.0, "2024-11": 9.979199999999999, "2024-12": 4.9896, "2025-01": 5.76072, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "陈良强": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 6.0, "2024-12": 10.875, "2025-01": 4.0, "2025-02": 42.7, "2025-03": 1.1, "2025-04": 0.0}, "陈荣宣": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 1.725, "2024-12": 2.3, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 10.0, "2025-04": 0.0}, "马泽帆": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "高明": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 4.9896, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鸿兴纱行（陈宏亮）": {"2024-05": 2.08656, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鸿盛": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 26.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鹏盛泰": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.5, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 7.7, "2025-04": 0.0}, "黄国泽": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "黄旭健": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 3.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "黄晓燕": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 0.0, "2025-01": 0.0, "2025-02": 10.3, "2025-03": 0.0, "2025-04": 0.0}, "黄育光（龙正）": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 41.504400000000004, "2024-09": 33.43032, "2024-10": 0.0, "2024-11": 16.05744, "2024-12": 4.44528, "2025-01": 0.0, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}, "鼎和纺织": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 2.0412, "2024-12": 2.0, "2025-01": 1.9968, "2025-02": 4.012512, "2025-03": 0.0, "2025-04": 0.0}, "鼎翔织造": {"2024-05": 0.0, "2024-06": 0.0, "2024-07": 0.0, "2024-08": 0.0, "2024-09": 0.0, "2024-10": 0.0, "2024-11": 0.0, "2024-12": 4.9896, "2025-01": 9.9792, "2025-02": 0.0, "2025-03": 0.0, "2025-04": 0.0}};
 
         function filterTable() {
             const client = document.getElementById('clientFilter').value.toLowerCase();
